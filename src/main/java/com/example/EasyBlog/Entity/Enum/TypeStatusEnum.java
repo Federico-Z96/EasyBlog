@@ -5,7 +5,7 @@ public enum TypeStatusEnum {
     INACTIVE("inactive"),
     SUSPENDED("Suspended");
 
-    private String description;
+    private final String description;
 
     private TypeStatusEnum(String description) {
         this.description = description;

@@ -12,7 +12,7 @@ public enum TypeGenderArticlesEnum {
     GOSSIP("Gossip"),
     OTHER("Other"),;
 
-    private String description;
+    private final String description;
 
     private TypeGenderArticlesEnum(String description) {
         this.description = description;

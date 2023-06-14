@@ -6,7 +6,7 @@ public enum TypeRoleEnum {
     MOD("Mod"),
     ADMIN("Admin");
 
-    private String description;
+    private final String description;
 
     private TypeRoleEnum (String description) {
         this.description = description;
