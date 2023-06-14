@@ -16,7 +16,7 @@ public class ArticlesService {
     @Autowired
     private static ArticlesRepository articlesRepository;
 
-    public Articles getArticles(Long id) throws Exception {
+    public Articles getArticlesById(Long id) throws Exception {
         Optional<Articles> articlesOptional = articlesRepository.findById(id);
         if (articlesOptional.isEmpty()) {
             throw new IllegalArgumentException("Article does not exist");
@@ -28,7 +28,7 @@ public class ArticlesService {
         return article;
     }
 
-    public List<Articles> getAllActiveArticles(){
+    public List<Articles> getAllArticles(){
         List<Articles> activeArticles = new ArrayList<>();
         List<Articles> allArticles = articlesRepository.findAll();
         for (Articles articles : allArticles){
@@ -37,5 +37,26 @@ public class ArticlesService {
             }
         }
         return activeArticles;
+    }
+    public List<Articles> getAllDeletedArticles(){
+        List<Articles> inactiveArticles = new ArrayList<>();
+        List<Articles> allArticles = articlesRepository.findAll();
+        for (Articles articles : allArticles){
+            if (articles.getTypeStatus() == TypeStatusEnum.INACTIVE){
+                inactiveArticles.add(articles);
+            }
+        }
+        return inactiveArticles;
+    }
+
+    public List<Articles> getAllSuspendedArticles(){
+        List<Articles> suspendedArticles = new ArrayList<>();
+        List<Articles> allArticles = articlesRepository.findAll();
+        for (Articles articles : allArticles){
+            if (articles.getTypeStatus() == TypeStatusEnum.INACTIVE){
+                suspendedArticles.add(articles);
+            }
+        }
+        return suspendedArticles;
     }
 }

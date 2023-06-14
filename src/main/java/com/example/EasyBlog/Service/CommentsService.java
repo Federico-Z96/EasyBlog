@@ -16,11 +16,7 @@ public class CommentsService {
     @Autowired
     private static CommentsRepository commentsRepository;
 
-    public List<Comments> getAllUsers(){
-        return commentsRepository.findAll();
-    }
-
-    public List<Comments> getAllActiveComments(){
+    public List<Comments> getAllComments(){
         List<Comments> activeComments = new ArrayList<>();
         List<Comments> allComments = commentsRepository.findAll();
         for (Comments comments : allComments){
