@@ -27,11 +27,10 @@ import java.util.Date;
         public ArticlesRead() {
         }
 
-        public ArticlesRead(Long id, Date createdAt, Date updatedAt, boolean deleted, Users users, Articles articles) {
+        public ArticlesRead(Long id, Date createdAt, Date updatedAt, Users users, Articles articles) {
             this.id = id;
             this.createdAt = createdAt;
             this.updatedAt = updatedAt;
-            this.deleted = deleted;
             this.users = users;
             this.articles = articles;
         }
@@ -58,14 +57,6 @@ import java.util.Date;
 
         public void setUpdatedAt(Date updatedAt) {
             this.updatedAt = updatedAt;
-        }
-
-        public boolean isDeleted() {
-            return deleted;
-        }
-
-        public void setDeleted(boolean deleted) {
-            this.deleted = deleted;
         }
 
         public Users getUsers() {

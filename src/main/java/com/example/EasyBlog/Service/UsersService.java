@@ -1,5 +1,7 @@
 package com.example.EasyBlog.Service;
 
+import com.example.EasyBlog.Entity.Articles;
+import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,17 @@ public class UsersService {
 
     public List<Users> getAllUsers(){
         return usersRepository.findAll();
+    }
+
+    public List<Users> getAllActiveUsers(){
+        List<Users> activeUsers = new ArrayList<>();
+        List<Users> allUsers = usersRepository.findAll();
+        for (Users users : allUsers){
+            if (users.getTypeStatus() == TypeStatusEnum.ACTIVE){
+                activeUsers.add(users);
+            }
+        }
+        return activeUsers;
     }
 
     public Users updateUser (Users users){return usersRepository.save(users); }

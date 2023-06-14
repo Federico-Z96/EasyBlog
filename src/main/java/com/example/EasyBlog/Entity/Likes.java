@@ -18,8 +18,6 @@ public class Likes {
     private Date createdAt;
     @Column(nullable = false, name = "updated_at")
     private Date updatedAt;
-    @Column(nullable = false, name = "deleted")
-    private boolean deleted;
     @ManyToOne
     private Users users;
     @ManyToOne
@@ -28,12 +26,11 @@ public class Likes {
     public Likes() {
     }
 
-    public Likes(Long id, Date likeDate, Date createdAt, Date updatedAt, boolean deleted, Users users, Articles articles) {
+    public Likes(Long id, Date likeDate, Date createdAt, Date updatedAt, Users users, Articles articles) {
         this.id = id;
         this.likeDate = likeDate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.deleted = deleted;
         this.users = users;
         this.articles = articles;
     }
@@ -68,14 +65,6 @@ public class Likes {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 
     public Users getUsers() {

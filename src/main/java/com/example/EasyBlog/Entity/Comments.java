@@ -99,4 +99,12 @@ public class Comments {
     public void setArticles(Articles articles) {
         this.articles = articles;
     }
+
+    public TypeStatusEnum getTypeStatus() {
+        return typeStatus;
+    }
+
+    public void setTypeStatus(TypeStatusEnum typeStatus) {
+        this.typeStatus = typeStatus;
+    }
 }
