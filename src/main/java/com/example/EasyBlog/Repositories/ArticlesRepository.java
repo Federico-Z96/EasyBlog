@@ -14,13 +14,13 @@ public interface ArticlesRepository extends JpaRepository<Articles,Long> {
     @Query("SELECT a FROM articles a WHERE a.title = ?1")
     Optional<Articles> findArticlesByTitle (String title);
     @Query("SELECT a FROM articles a WHERE a.typeStatus='ACTIVE'")
-    Optional<List<Articles>>findByActive();
+    Optional<List<Articles>>findArticlesByActive();
 
     @Query("SELECT a FROM articles a WHERE a.typeStatus='INACTIVE'")
-    Optional<List<Articles>>findByInactive();
+    Optional<List<Articles>>findArticlesByInactive();
 
     @Query("SELECT a FROM articles a WHERE a.typeStatus='SUSPENDED'")
-    Optional<List<Articles>>findBySuspended();
+    Optional<List<Articles>>findArticlesBySuspended();
 
     // TODO filtrare solo quelli attivi
 }

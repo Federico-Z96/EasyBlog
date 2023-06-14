@@ -25,18 +25,13 @@ public class UsersController {
     }
 
     @GetMapping("/get/{id}")
-    public Users getUser(@PathVariable Long idUser){return usersService.getUser(idUser); }
+    public Users getUser(@PathVariable Long idUser){return usersService.getUserById(idUser); }
 
     @GetMapping("/getAll")
     public List<Users> getAllLocations(){return usersService.getAllUsers(); }
 
     @PutMapping("/update")
     public Users updateUser (@RequestBody Users users){return usersService.updateUser(users); }
-
-
-
-
-
 
     @DeleteMapping("/delete/{id}")
     public void deleteUserById(@PathVariable Long idUser){usersService.deleteUser(idUser); }

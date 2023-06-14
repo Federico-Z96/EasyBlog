@@ -1,6 +1,7 @@
 package com.example.EasyBlog.Service;
 
 import com.example.EasyBlog.Entity.Articles;
+import com.example.EasyBlog.Entity.Comments;
 import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Repositories.UsersRepository;
@@ -27,7 +28,7 @@ public class UsersService {
        return usersRepository.save(users);
     }
 
-    public Users getUser(Long idUser){
+    public Users getUserById(Long idUser){
         Optional<Users> usersOptional = usersRepository.findById(idUser);
         if (usersOptional.isEmpty()) throw new IllegalArgumentException("User does not exist");
         return usersOptional.get();
@@ -37,16 +38,18 @@ public class UsersService {
         return usersRepository.findAll();
     }
 
-    public List<Users> getAllActiveUsers(){
-        List<Users> activeUsers = new ArrayList<>();
-        List<Users> allUsers = usersRepository.findAll();
-        for (Users users : allUsers){
-            if (users.getTypeStatus() == TypeStatusEnum.ACTIVE){
-                activeUsers.add(users);
-            }
-        }
-        return activeUsers;
+    public Optional<List<Users>> getAllActiveUsers(){
+        return usersRepository.findUsersByActive();
     }
+
+    public Optional<List<Users>> getAllInactiveUsers(){
+        return usersRepository.findUsersByInactive();
+    }
+
+    public Optional<List<Users>> getAllSuspendedUsers(){
+        return usersRepository.findUsersBySuspended();
+    }
+
 
     public Users updateUser (Users users){return usersRepository.save(users); }
 
@@ -67,7 +70,5 @@ public class UsersService {
 
         return deletedUsers;
     }
-
-
 
     }

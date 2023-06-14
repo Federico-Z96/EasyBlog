@@ -41,18 +41,15 @@ public class ArticlesService {
     }
 
     public Optional<List<Articles>> getAllArticles(){
-        Optional<List<Articles>> activeArticles = articlesRepository.findByActive();
-        return activeArticles;
+        return articlesRepository.findArticlesByActive();
     }
 
     public Optional<List<Articles>> getAllInactiveArticles(){
-        Optional<List<Articles>> inactiveArticles = articlesRepository.findByInactive();
-        return inactiveArticles;
+        return articlesRepository.findArticlesByInactive();
     }
 
     public Optional<List<Articles>> getAllSuspendedArticles(){
-        Optional<List<Articles>> suspendedArticles = articlesRepository.findBySuspended();
-        return suspendedArticles;
+        return articlesRepository.findArticlesBySuspended();
     }
 
 
