@@ -14,12 +14,10 @@ public class Articles {
     private long id;
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "created_at")
     private Date createdAt;
     @Column(nullable = false)
     private Date updatedAt;
-    @Column(nullable = false)
-    private boolean deleted;
     @Column(nullable = false)
     private String content;
     @Column(nullable = false)
@@ -30,12 +28,11 @@ public class Articles {
     @JoinColumn(name = "id_author", referencedColumnName = "id")
     private Users users;
 
-    public Articles(long id, String title, Date createdAt, Date updatedAt, boolean deleted, String content, Date datePublication, Users users, TypeStatusEnum typeStatus) {
+    public Articles(Long id, String title, Date createdAt, Date updatedAt, String content, Date datePublication, Users users, TypeStatusEnum typeStatus) {
         this.id = id;
         this.title = title;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.deleted = deleted;
         this.content = content;
         this.datePublication = datePublication;
         this.users = users;
@@ -75,14 +72,6 @@ public class Articles {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 
     public String getContent() {
