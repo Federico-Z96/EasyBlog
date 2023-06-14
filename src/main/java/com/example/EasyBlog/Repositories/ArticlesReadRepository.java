@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ArticlesReadRepository extends JpaRepository<ArticlesRead,Long> {
 
-    // TODO filtrare solo quelli attivi
 }
