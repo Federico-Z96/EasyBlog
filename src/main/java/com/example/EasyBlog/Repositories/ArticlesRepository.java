@@ -22,5 +22,7 @@ public interface ArticlesRepository extends JpaRepository<Articles,Long> {
     @Query("SELECT a FROM articles a WHERE a.typeStatus='SUSPENDED'")
     Optional<List<Articles>>findArticlesBySuspended();
 
+
+
     // TODO filtrare solo quelli attivi
 }

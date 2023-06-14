@@ -39,4 +39,12 @@ public class UsersController {
     @DeleteMapping("/deleteAll")
     public List<Users> deleteAll(){return usersService.deleteAllUsers(); }
 
+    @GetMapping("/getUsersActive")
+    public Optional<List<Users>> getUsersActive (){return usersService.getAllActiveUsers();}
+    @GetMapping("/getUsersInactive")
+    public Optional<List<Users>> getUsersInactive (){return usersService.getAllInactiveUsers();}
+    @GetMapping("/getUsersSuspended")
+    public Optional<List<Users>> getUsersSuspended (){return usersService.getAllSuspendedUsers();}
+
+
 }

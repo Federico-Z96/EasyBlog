@@ -45,12 +45,15 @@ public class ArticlesService {
     }
 
     public Optional<List<Articles>> getAllInactiveArticles(){
+
         return articlesRepository.findArticlesByInactive();
     }
 
     public Optional<List<Articles>> getAllSuspendedArticles(){
         return articlesRepository.findArticlesBySuspended();
     }
+
+    public Optional<Articles> getArticlesByTitle(String title){return articlesRepository.findArticlesByTitle(title);}
 
 
 
