@@ -1,5 +1,6 @@
 package com.example.EasyBlog.Entity;
 
+import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import jakarta.persistence.*;
 
 
@@ -20,8 +21,8 @@ public class Comments {
     private Date createdAt;
     @Column(nullable = false, name = "updated_at")
     private Date updatedAt;
-    @Column(nullable = false, name = "deleted")
-    private boolean deleted;
+    @Column(nullable = false, name = "updated_at")
+    private TypeStatusEnum typeStatus;
     @ManyToOne
     private Users users;
     @ManyToOne
@@ -30,13 +31,13 @@ public class Comments {
     public Comments() {
     }
 
-    public Comments(Long id, String commentText, Date commentDate, Date createdAt, Date updatedAt, boolean deleted, Users users, Articles articles) {
+    public Comments(Long id, String commentText, Date commentDate, Date createdAt, Date updatedAt, TypeStatusEnum typeStatus, Users users, Articles articles) {
         this.id = id;
         this.commentText = commentText;
         this.commentDate = commentDate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.deleted = deleted;
+        this.typeStatus = typeStatus;
         this.users = users;
         this.articles = articles;
     }
@@ -81,13 +82,7 @@ public class Comments {
         this.updatedAt = updatedAt;
     }
 
-    public boolean isDeleted() {
-        return deleted;
-    }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
 
     public Users getUsers() {
         return users;

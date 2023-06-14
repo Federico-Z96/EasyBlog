@@ -1,5 +1,6 @@
 package com.example.EasyBlog.Entity;
 
+import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
 import jakarta.persistence.*;
 
 
@@ -13,23 +14,20 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, name = "role_name")
-    private String roleName;
+    private TypeRoleEnum roleName;
     @Column(nullable = false, name = "created_at")
     private Date createdAt;
     @Column(nullable = false, name = "updated_at")
     private Date updatedAt;
-    @Column(nullable = false, name = "deleted")
-    private boolean deleted;
 
     public Roles() {
     }
 
-    public Roles(Long id, String roleName, Date createdAt, Date updatedAt, boolean deleted) {
+    public Roles(Long id, TypeRoleEnum roleName, Date createdAt, Date updatedAt) {
         this.id = id;
         this.roleName = roleName;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.deleted = deleted;
     }
 
     public Long getId() {
@@ -40,11 +38,11 @@ public class Roles {
         this.id = id;
     }
 
-    public String getRoleName() {
+    public TypeRoleEnum getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(String roleName) {
+    public void setRoleName(TypeRoleEnum roleName) {
         this.roleName = roleName;
     }
 
@@ -64,11 +62,4 @@ public class Roles {
         this.updatedAt = updatedAt;
     }
 
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
 }

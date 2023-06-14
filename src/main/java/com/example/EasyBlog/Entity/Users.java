@@ -1,5 +1,6 @@
 package com.example.EasyBlog.Entity;
 
+import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import jakarta.persistence.*;
 
 
@@ -105,5 +106,13 @@ public class Users {
 
     public void setRoles(Roles roles) {
         this.roles = roles;
+    }
+
+    public TypeStatusEnum getTypeStatus() {
+        return typeStatus;
+    }
+
+    public void setTypeStatus(TypeStatusEnum typeStatus) {
+        this.typeStatus = typeStatus;
     }
 }

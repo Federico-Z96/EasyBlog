@@ -1,4 +1,4 @@
-package com.example.EasyBlog.Entity;
+package com.example.EasyBlog.Entity.Enum;
 
 public enum TypeStatusEnum {
     ACTIVE("active"),

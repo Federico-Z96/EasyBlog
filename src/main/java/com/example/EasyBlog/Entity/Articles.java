@@ -1,5 +1,7 @@
 package com.example.EasyBlog.Entity;
 
+import com.example.EasyBlog.Entity.Enum.TypeGenderArticlesEnum;
+import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import jakarta.persistence.*;
 
 
@@ -20,26 +22,25 @@ public class Articles {
     private Date updatedAt;
     @Column(nullable = false, name = "content")
     private String content;
-    @Column(nullable = false, name = "date_publication")
-    private Date datePublication;
     @Column(nullable = false, name = "type_status")
     private TypeStatusEnum typeStatus;
+
+    @Column(nullable = false, name = "type_gender")
+    private TypeGenderArticlesEnum typeGender;
+
     @ManyToOne
     @JoinColumn(name = "id_author", referencedColumnName = "id")
     private Users users;
 
-    public Articles(Long id, String title, Date createdAt, Date updatedAt, String content, Date datePublication, Users users, TypeStatusEnum typeStatus) {
+    public Articles(Long id, String title, Date createdAt, Date updatedAt, String content, Users users, TypeStatusEnum typeStatus, TypeGenderArticlesEnum typeGender) {
         this.id = id;
         this.title = title;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.content = content;
-        this.datePublication = datePublication;
         this.users = users;
         this.typeStatus = typeStatus;
-    }
-
-    public Articles() {
+        this.typeGender = typeGender;
     }
 
     public Long getId() {
@@ -82,14 +83,6 @@ public class Articles {
         this.content = content;
     }
 
-    public Date getDatePublication() {
-        return datePublication;
-    }
-
-    public void setDatePublication(Date datePublication) {
-        this.datePublication = datePublication;
-    }
-
     public Users getUsers() {
         return users;
     }
@@ -97,4 +90,21 @@ public class Articles {
     public void setUsers(Users users) {
         this.users = users;
     }
+
+    public TypeStatusEnum getTypeStatus() {
+        return typeStatus;
+    }
+
+    public void setTypeStatus(TypeStatusEnum typeStatus) {
+        this.typeStatus = typeStatus;
+    }
+
+    public TypeGenderArticlesEnum getTypeGender() {
+        return typeGender;
+    }
+
+    public void setTypeGender(TypeGenderArticlesEnum typeGender) {
+        this.typeGender = typeGender;
+    }
 }
+
