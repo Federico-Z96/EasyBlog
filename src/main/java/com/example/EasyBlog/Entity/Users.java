@@ -10,20 +10,20 @@ import java.util.Date;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(nullable = false)
+    private Long id;
+    @Column(nullable = false, name = "username")
     private String username;
-    @Column(nullable = false)
+    @Column(nullable = false,name = "password" )
     private String password;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "email" )
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "created_at")
     private Date createdAt;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "updated_at")
     private Date updatedAt;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "deleted")
     private boolean deleted;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "type_status")
     private TypeStatusEnum typeStatus;
     @ManyToOne
     private Roles roles;
@@ -31,7 +31,7 @@ public class Users {
     public Users() {
     }
 
-    public Users(long id, String username, String password, String email, Date createdAt, Date updatedAt, boolean deleted, TypeStatusEnum typeStatus, Roles roles) {
+    public Users(Long id, String username, String password, String email, Date createdAt, Date updatedAt, boolean deleted, TypeStatusEnum typeStatus, Roles roles) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -43,11 +43,11 @@ public class Users {
         this.roles = roles;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

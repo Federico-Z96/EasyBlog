@@ -11,14 +11,14 @@ import java.util.Date;
 public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(nullable = false)
+    private Long id;
+    @Column(nullable = false, name = "like_date")
     private Date likeDate;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "created_at")
     private Date createdAt;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "updated_at")
     private Date updatedAt;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "deleted")
     private boolean deleted;
     @ManyToOne
     private Users users;
@@ -28,7 +28,7 @@ public class Likes {
     public Likes() {
     }
 
-    public Likes(long id, Date likeDate, Date createdAt, Date updatedAt, boolean deleted, Users users, Articles articles) {
+    public Likes(Long id, Date likeDate, Date createdAt, Date updatedAt, boolean deleted, Users users, Articles articles) {
         this.id = id;
         this.likeDate = likeDate;
         this.createdAt = createdAt;
@@ -38,11 +38,11 @@ public class Likes {
         this.articles = articles;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

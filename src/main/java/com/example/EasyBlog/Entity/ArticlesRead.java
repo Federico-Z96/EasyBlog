@@ -12,12 +12,12 @@ import java.util.Date;
     public class ArticlesRead {
         @Id
         @GeneratedValue (strategy = GenerationType.IDENTITY)
-        private long id;
-        @Column(nullable = false)
+        private Long id;
+        @Column(nullable = false, name = "created_at")
         private Date createdAt;
-        @Column(nullable = false)
+        @Column(nullable = false, name = "updated_at")
         private Date updatedAt;
-        @Column(nullable = false)
+        @Column(nullable = false, name = "deleted")
         private boolean deleted;
         @ManyToOne
         private Users users;
@@ -27,7 +27,7 @@ import java.util.Date;
         public ArticlesRead() {
         }
 
-        public ArticlesRead(long id, Date createdAt, Date updatedAt, boolean deleted, Users users, Articles articles) {
+        public ArticlesRead(Long id, Date createdAt, Date updatedAt, boolean deleted, Users users, Articles articles) {
             this.id = id;
             this.createdAt = createdAt;
             this.updatedAt = updatedAt;
@@ -36,11 +36,11 @@ import java.util.Date;
             this.articles = articles;
         }
 
-        public long getId() {
+        public Long getId() {
             return id;
         }
 
-        public void setId(long id) {
+        public void setId(Long id) {
             this.id = id;
         }
 

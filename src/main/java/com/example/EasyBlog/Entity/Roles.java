@@ -11,20 +11,20 @@ import java.util.Date;
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(nullable = false)
+    private Long id;
+    @Column(nullable = false, name = "role_name")
     private String roleName;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "created_at")
     private Date createdAt;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "updated_at")
     private Date updatedAt;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "deleted")
     private boolean deleted;
 
     public Roles() {
     }
 
-    public Roles(long id, String roleName, Date createdAt, Date updatedAt, boolean deleted) {
+    public Roles(Long id, String roleName, Date createdAt, Date updatedAt, boolean deleted) {
         this.id = id;
         this.roleName = roleName;
         this.createdAt = createdAt;
@@ -32,11 +32,11 @@ public class Roles {
         this.deleted = deleted;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
