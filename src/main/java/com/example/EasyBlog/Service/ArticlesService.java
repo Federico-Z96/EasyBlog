@@ -16,11 +16,16 @@ public class ArticlesService {
     @Autowired
     private static ArticlesRepository articlesRepository;
 
-    public Articles getArticles(Long id, TypeStatusEnum typeStatus) throws Exception {
+    public Articles getArticles(Long id) throws Exception {
         Optional<Articles> articlesOptional = articlesRepository.findById(id);
-        Optional<Articles> articlesOpt2 = articlesRepository.findByActive(typeStatus);
-        if (articlesOpt2.isPresent() || articlesOptional.isEmpty()) throw new IllegalArgumentException("Articles does not exist");
-        return articlesOptional.get();
+        if (articlesOptional.isEmpty()) {
+            throw new IllegalArgumentException("Article does not exist");
+        }
+        Articles article = articlesOptional.get();
+        if (article.getTypeStatus() != TypeStatusEnum.ACTIVE) {
+            throw new IllegalArgumentException("Article is not in an active status");
+        }
+        return article;
     }
 
     public List<Articles> getAllActiveArticles(){
