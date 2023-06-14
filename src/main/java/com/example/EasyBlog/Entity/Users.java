@@ -23,13 +23,15 @@ public class Users {
     private Date updatedAt;
     @Column(nullable = false)
     private boolean deleted;
+    @Column(nullable = false)
+    private TypeStatusEnum typeStatus;
     @ManyToOne
     private Roles roles;
 
     public Users() {
     }
 
-    public Users(long id, String username, String password, String email, Date createdAt, Date updatedAt, boolean deleted, Roles roles) {
+    public Users(long id, String username, String password, String email, Date createdAt, Date updatedAt, boolean deleted, TypeStatusEnum typeStatus, Roles roles) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -37,6 +39,7 @@ public class Users {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deleted = deleted;
+        this.typeStatus = typeStatus;
         this.roles = roles;
     }
 

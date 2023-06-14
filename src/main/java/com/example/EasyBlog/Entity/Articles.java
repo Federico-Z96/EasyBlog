@@ -24,11 +24,13 @@ public class Articles {
     private String content;
     @Column(nullable = false)
     private Date datePublication;
+    @Column(nullable = false)
+    private TypeStatusEnum typeStatus;
     @ManyToOne
     @JoinColumn(name = "id_author", referencedColumnName = "id")
     private Users users;
 
-    public Articles(long id, String title, Date createdAt, Date updatedAt, boolean deleted, String content, Date datePublication, Users users) {
+    public Articles(long id, String title, Date createdAt, Date updatedAt, boolean deleted, String content, Date datePublication, Users users, TypeStatusEnum typeStatus) {
         this.id = id;
         this.title = title;
         this.createdAt = createdAt;
@@ -37,6 +39,7 @@ public class Articles {
         this.content = content;
         this.datePublication = datePublication;
         this.users = users;
+        this.typeStatus = typeStatus;
     }
 
     public Articles() {
