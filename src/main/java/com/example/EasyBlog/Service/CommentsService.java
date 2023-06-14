@@ -18,6 +18,8 @@ public class CommentsService {
     @Autowired
     private static CommentsRepository commentsRepository;
 
+    public Comments createComments(Comments comments){return commentsRepository.save(comments);}
+
     public Optional<List<Comments>> getAllActiveComments(){
         return commentsRepository.findCommentsByActive();
     }
