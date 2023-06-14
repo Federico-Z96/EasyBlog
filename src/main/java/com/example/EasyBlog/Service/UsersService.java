@@ -5,6 +5,8 @@ import com.example.EasyBlog.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 @Service
 public class UsersService {
@@ -15,11 +17,44 @@ public class UsersService {
         this.usersRepository = usersRepository;
     }
 
-    public void createUser(Users users){
+    public Users createUser(Users users){
         Optional<Users> userByEmail = usersRepository.findUserByEmail(users.getEmail());
         if (userByEmail.isPresent()){
             throw new IllegalStateException("email already registered");
         }
-        usersRepository.save(users);
+       return usersRepository.save(users);
     }
-}
+
+    public Users getUser(Long idUser){
+        Optional<Users> usersOptional = usersRepository.findById(idUser);
+        if (usersOptional.isEmpty()) throw new IllegalArgumentException("User does not exist");
+        return usersOptional.get();
+    }
+
+    public List<Users> getAllUsers(){
+        return usersRepository.findAll();
+    }
+
+    public Users updateUser (Users users){return usersRepository.save(users); }
+
+    public Users deleteUser(Long idUser){
+        Optional<Users> usersOptional = usersRepository.findById(idUser);
+        if (usersOptional.isEmpty()) throw new IllegalArgumentException("User does not exist");
+        return usersOptional.get();
+    }
+
+    public List<Users> deleteAllUsers(){
+        List<Users> deletedUsers = new ArrayList<>();
+        List<Users> allUsers = usersRepository.findAll();
+
+        for (Users user : allUsers) {
+            deletedUsers.add(user);
+            usersRepository.delete(user);
+        }
+
+        return deletedUsers;
+    }
+
+
+
+    }

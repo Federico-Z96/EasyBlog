@@ -2,11 +2,12 @@ package com.example.EasyBlog.Controller;
 
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Service.UsersService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/User")
@@ -18,8 +19,29 @@ public class UsersController {
         this.usersService = usersService;
     }
 
-    @PostMapping("/create")
-    public void createUser(@RequestBody Users users){
-        usersService.createUser(users);
+    @PostMapping("/register")
+    public Users createUser(@RequestBody Users users){
+        return usersService.createUser(users);
     }
+
+    @GetMapping("/get/{id}")
+    public Users getUser(@PathVariable Long idUser){return usersService.getUser(idUser); }
+
+    @GetMapping("/getAll")
+    public List<Users> getAllLocations(){return usersService.getAllUsers(); }
+
+    @PutMapping("/update")
+    public Users updateUser (@RequestBody Users users){return usersService.updateUser(users); }
+
+
+
+
+
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteUserById(@PathVariable Long idUser){usersService.deleteUser(idUser); }
+
+    @DeleteMapping("/deleteAll")
+    public List<Users> deleteAll(){return usersService.deleteAllUsers(); }
+
 }
