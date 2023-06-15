@@ -4,6 +4,8 @@ import com.example.EasyBlog.Entity.Articles;
 import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Repositories.ArticlesRepository;
+import com.example.EasyBlog.Repositories.UsersRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import java.util.Optional;
 public class ArticlesService {
     @Autowired
     private static ArticlesRepository articlesRepository;
+    @Autowired
+    private static UsersRepository usersRepository;
 
     public Articles createArticles(Articles articles) {
         Optional<Articles> articleByTitle = articlesRepository.findArticlesByTitle(articles.getTitle());

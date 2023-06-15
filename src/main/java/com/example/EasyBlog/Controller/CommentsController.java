@@ -15,8 +15,8 @@ public class CommentsController {
     private CommentsService commentsService;
 
     @PostMapping("/create")
-    public Comments createUser(@RequestBody Comments comments){
-        return commentsService.createComments(comments);
+    public Comments createUser(@RequestBody Comments comments, String email, String title){
+        return commentsService.createComments(comments, email, title);
     }
 
     @GetMapping("/getAllActive")

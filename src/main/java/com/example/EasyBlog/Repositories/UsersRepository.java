@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Optional;
 public interface UsersRepository extends JpaRepository<Users,Long> {
 
+    @Query("SELECT u FROM users u WHERE u.typeRole = 'WRITER'")
+    Optional <List<Users>> findByTypeRole ();
+
     @Query("SELECT u FROM users u WHERE u.email = ?1")
     Optional<Users> findUserByEmail (String Email);
 
@@ -21,4 +24,5 @@ public interface UsersRepository extends JpaRepository<Users,Long> {
 
     @Query("SELECT u FROM users u WHERE u.typeStatus='SUSPENDED'")
     Optional<List<Users>>findUsersBySuspended();
+
 }
