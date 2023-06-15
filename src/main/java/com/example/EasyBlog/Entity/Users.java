@@ -1,5 +1,6 @@
 package com.example.EasyBlog.Entity;
 
+import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
 import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import jakarta.persistence.*;
 
@@ -27,19 +28,18 @@ public class Users {
     @Column(nullable = false, name = "type_status")
     private TypeStatusEnum typeStatus;
     @ManyToOne
-    private Roles roles;
+    private TypeRoleEnum roles;
 
     public Users() {
     }
 
-    public Users(Long id, String username, String password, String email, Date createdAt, Date updatedAt, boolean deleted, TypeStatusEnum typeStatus, Roles roles) {
+    public Users(Long id, String username, String password, String email, Date createdAt, Date updatedAt, TypeStatusEnum typeStatus, TypeRoleEnum roles) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.deleted = deleted;
         this.typeStatus = typeStatus;
         this.roles = roles;
     }
@@ -100,11 +100,11 @@ public class Users {
         this.deleted = deleted;
     }
 
-    public Roles getRoles() {
+    public TypeRoleEnum getRoles() {
         return roles;
     }
 
-    public void setRoles(Roles roles) {
+    public void setRoles(TypeRoleEnum roles) {
         this.roles = roles;
     }
 

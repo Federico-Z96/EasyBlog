@@ -1,7 +1,9 @@
 package com.example.EasyBlog.Service;
 
 import com.example.EasyBlog.Entity.Articles;
+import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
 import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
+import com.example.EasyBlog.Entity.Roles;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Repositories.ArticlesRepository;
 import com.example.EasyBlog.Repositories.UsersRepository;
@@ -19,9 +21,9 @@ public class ArticlesService {
     @Autowired
     private static UsersRepository usersRepository;
 
-    public Articles createArticles(Articles articles) {
+    public Articles createArticles(Articles articles,Users users) {
         Optional<Articles> articleByTitle = articlesRepository.findArticlesByTitle(articles.getTitle());
-        if (articleByTitle.isPresent()){
+        if (users.getRoles() == TypeRoleEnum.READER && articleByTitle.isPresent()){
             throw new IllegalStateException("Title already exists");
         }
         return articlesRepository.save(articles);
