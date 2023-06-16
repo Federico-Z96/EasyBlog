@@ -24,7 +24,7 @@ public class ArticlesService {
     public Articles createArticles(Articles articles,Users users) {
         Optional<Articles> articleByTitle = articlesRepository.findArticlesByTitle(articles.getTitle());
         if (users.getRoles() == TypeRoleEnum.READER || articleByTitle.isPresent()){
-            throw new IllegalStateException("Title already exists");
+            throw new IllegalStateException("Title already exists or you haven't permission to create it");
         }
         return articlesRepository.save(articles);
     }
