@@ -67,9 +67,6 @@ public class ArticlesService {
     public Optional<List<Articles>> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesRepository.getArticlesByGender(typeGenderArticlesEnum);}
 
     public Optional<Articles> updateArticleStatus(Integer articleId){
-        if (articleId == 0){
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Article not found");
-        }
         return articlesRepository.updateArticlesStatus(articleId);}
 
 

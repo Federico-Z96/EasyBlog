@@ -39,7 +39,7 @@ public class ArticlesController {
     public Optional<List<Articles>> getArticlesByGender(@PathVariable TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesService.getArticlesByGender(typeGenderArticlesEnum);}
 
     @PutMapping("/{id}/update")
-    public Optional<Articles> updateArticle(@PathVariable Integer id){return articlesService.updateArticleStatus(id);}
+    public Optional<Articles> updateArticle(@PathVariable Integer id, @RequestBody){return articlesService.updateArticleStatus(id);}
 
 
 }
