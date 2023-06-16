@@ -1,6 +1,8 @@
 package com.example.EasyBlog.Controller;
 
 import com.example.EasyBlog.Entity.Articles;
+import com.example.EasyBlog.Entity.Enum.TypeGenderArticlesEnum;
+import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Service.ArticlesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,7 @@ public class ArticlesController {
     private ArticlesService articlesService;
 
     @PostMapping("/create")
-    public Articles createArticles(@RequestBody Articles articles){return articlesService.createArticles(articles);}
+    public Articles createArticles(@RequestBody Articles articles, Users users){return articlesService.createArticles(articles,users);}
 
     @GetMapping("/getArticlesActive/{id}")
     public Articles getArticlesById(@PathVariable Long idArticles) throws Exception {return articlesService.getArticlesById(idArticles);}
@@ -32,6 +34,10 @@ public class ArticlesController {
 
     @GetMapping("/getArticlesBy/{title}")
     public Optional<Articles> getArticlesByTitle(@PathVariable String title){return articlesService.getArticlesByTitle(title);}
+
+    @GetMapping("/getArticleByGender/{gender}")
+    public Optional<List<Articles>> getArticlesByGender(@PathVariable TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesService.getArticlesByGender(typeGenderArticlesEnum);}
+
 
 
 }

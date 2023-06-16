@@ -24,9 +24,6 @@ import java.util.Date;
         @ManyToOne
         private Articles articles;
 
-        public ArticlesRead() {
-        }
-
         public ArticlesRead(Long id, Date createdAt, Date updatedAt, Users users, Articles articles) {
             this.id = id;
             this.createdAt = createdAt;

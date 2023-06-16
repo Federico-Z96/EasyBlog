@@ -28,9 +28,6 @@ public class Comments {
     @ManyToOne
     private Articles articles;
 
-    public Comments() {
-    }
-
     public Comments(Long id, String commentText, Date commentDate, Date createdAt, Date updatedAt, TypeStatusEnum typeStatus, Users users, Articles articles) {
         this.id = id;
         this.commentText = commentText;

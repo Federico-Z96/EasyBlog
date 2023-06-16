@@ -20,9 +20,6 @@ public class Roles {
     @Column(nullable = false, name = "updated_at")
     private Date updatedAt;
 
-    public Roles() {
-    }
-
     public Roles(Long id, TypeRoleEnum roleName, Date createdAt, Date updatedAt) {
         this.id = id;
         this.roleName = roleName;

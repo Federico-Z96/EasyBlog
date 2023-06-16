@@ -1,6 +1,7 @@
 package com.example.EasyBlog.Service;
 
 import com.example.EasyBlog.Entity.Articles;
+import com.example.EasyBlog.Entity.Enum.TypeGenderArticlesEnum;
 import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
 import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.example.EasyBlog.Entity.Roles;
@@ -60,6 +61,8 @@ public class ArticlesService {
     }
 
     public Optional<Articles> getArticlesByTitle(String title){return articlesRepository.findArticlesByTitle(title);}
+
+    public Optional<List<Articles>> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesRepository.getArticlesByGender(typeGenderArticlesEnum);}
 
 
 

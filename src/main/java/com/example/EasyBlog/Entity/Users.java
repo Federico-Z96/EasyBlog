@@ -30,9 +30,6 @@ public class Users {
     @ManyToOne
     private TypeRoleEnum roles;
 
-    public Users() {
-    }
-
     public Users(Long id, String username, String password, String email, Date createdAt, Date updatedAt, TypeStatusEnum typeStatus, TypeRoleEnum roles) {
         this.id = id;
         this.username = username;
@@ -90,14 +87,6 @@ public class Users {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 
     public TypeRoleEnum getRoles() {
