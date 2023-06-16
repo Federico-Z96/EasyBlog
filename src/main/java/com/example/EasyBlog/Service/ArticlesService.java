@@ -10,6 +10,8 @@ import com.example.EasyBlog.Repositories.ArticlesRepository;
 import com.example.EasyBlog.Repositories.UsersRepository;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,8 +49,8 @@ public class ArticlesService {
         }
     }
 
-    public Optional<List<Articles>> getAllArticles(){
-        return articlesRepository.findArticlesByActive();
+    public List<Articles> getAllArticles(){
+        return articlesRepository.findAll();
     }
 
     public Optional<List<Articles>> getAllInactiveArticles(){
@@ -63,6 +65,13 @@ public class ArticlesService {
     public Optional<Articles> getArticlesByTitle(String title){return articlesRepository.findArticlesByTitle(title);}
 
     public Optional<List<Articles>> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesRepository.getArticlesByGender(typeGenderArticlesEnum);}
+
+    public Optional<Articles> updateArticleStatus(Integer articleId){
+        if (articleId == 0){
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Article not found");
+        }
+        return articlesRepository.updateArticlesStatus(articleId);}
+
 
 
 

@@ -20,7 +20,7 @@ public class ArticlesController {
     public Articles createArticles(@RequestBody Articles articles, Users users){return articlesService.createArticles(articles,users);}
 
     @GetMapping("/getArticlesActive/{id}")
-    public Articles getArticlesById(@PathVariable Long idArticles) throws Exception {return articlesService.getArticlesById(idArticles);}
+    public Articles getArticleById(@PathVariable Long idArticles) throws Exception {return articlesService.getArticlesById(idArticles);}
 
     @GetMapping("/getArticlesInactive")
     public Optional<List<Articles>> getArticlesInactive() {return articlesService.getAllInactiveArticles();
@@ -30,7 +30,7 @@ public class ArticlesController {
     public Optional<List<Articles>> getArticlesSuspended(){return articlesService.getAllSuspendedArticles();}
 
     @GetMapping("/getAllArticles")
-    public Optional<List<Articles>> getAllArticles(){return articlesService.getAllArticles();}
+    public List<Articles> getAllArticles(){return articlesService.getAllArticles();}
 
     @GetMapping("/getArticlesBy/{title}")
     public Optional<Articles> getArticlesByTitle(@PathVariable String title){return articlesService.getArticlesByTitle(title);}
@@ -38,6 +38,8 @@ public class ArticlesController {
     @GetMapping("/getArticleByGender/{gender}")
     public Optional<List<Articles>> getArticlesByGender(@PathVariable TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesService.getArticlesByGender(typeGenderArticlesEnum);}
 
+    @PutMapping("/{id}/update")
+    public Optional<Articles> updateArticle(@PathVariable Integer id){return articlesService.updateArticleStatus(id);}
 
 
 }

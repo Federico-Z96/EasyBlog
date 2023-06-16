@@ -12,6 +12,9 @@ import java.util.Optional;
 
 public interface ArticlesRepository extends JpaRepository<Articles,Long> {
 
+    @Query("UPDATE articles SET type_status = ? WHERE id = ? ")
+    Optional<Articles> updateArticlesStatus(Integer articleId);
+
     @Query("SELECT a FROM articles a WHERE a.type_gender = ?1")
     Optional<List<Articles>> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum);
 
