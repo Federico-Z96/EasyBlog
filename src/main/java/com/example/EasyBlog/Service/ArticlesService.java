@@ -69,6 +69,16 @@ public class ArticlesService {
     public Optional<Articles> updateArticleStatus(Integer articleId){
         return articlesRepository.updateArticlesStatus(articleId);}
 
+    public Optional<Articles> updateArticle(Long id, Articles articles){
+        Optional<Articles> foundArticle = articlesRepository.findById(id);
+
+        if (foundArticle.isEmpty()){
+           return Optional.empty();
+        }
+        return Optional.of(articlesRepository.save(articles));
+
+    }
+
 
 
 

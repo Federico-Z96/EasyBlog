@@ -5,6 +5,7 @@ import com.example.EasyBlog.Entity.Enum.TypeGenderArticlesEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Service.ArticlesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,8 +39,18 @@ public class ArticlesController {
     @GetMapping("/getArticleByGender/{gender}")
     public Optional<List<Articles>> getArticlesByGender(@PathVariable TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesService.getArticlesByGender(typeGenderArticlesEnum);}
 
-    @PutMapping("/{id}/update")
+    @PutMapping("/{id}/updateStatus")
     public Optional<Articles> updateArticle(@PathVariable Integer id){return articlesService.updateArticleStatus(id);}
+
+    @PutMapping("/{id}/update")
+    public ResponseEntity<Articles> updateArticle(@PathVariable Long id, @RequestBody Articles articles) {
+        Optional<Articles> updatedArticle = articlesService.updateArticle(id, articles);
+
+        if (updatedArticle.isPresent()) {
+            return ResponseEntity.ok(updatedArticle.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
 
 
 }
