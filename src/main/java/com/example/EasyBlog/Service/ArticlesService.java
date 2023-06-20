@@ -8,6 +8,8 @@ import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Repositories.ArticlesRepository;
 import com.example.EasyBlog.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class ArticlesService {
     public Articles createArticles(Articles articles,Users users) {
         Optional<Articles> articleByTitle = articlesRepository.findArticlesByTitle(articles.getTitle());
         if (users.getRoles() == TypeRoleEnum.READER || articleByTitle.isPresent()){
-            throw new IllegalStateException("Title already exists or you haven't permission to create it");
+            ResponseEntity.badRequest().body("Title already exists or you haven't permission to create it");
         }
         return articlesRepository.save(articles);
     }
@@ -31,18 +33,19 @@ public class ArticlesService {
     public Articles getArticlesById(Long id) throws Exception {
         Optional<Articles> articlesOptional = articlesRepository.findById(id);
         if (articlesOptional.isEmpty()) {
-            throw new IllegalArgumentException("Article does not exist");
+            ResponseEntity.badRequest().body("Article does not exist");
         }
         Articles article = articlesOptional.get();
         if (article.getTypeStatus() == TypeStatusEnum.INACTIVE) {
-            throw new IllegalArgumentException("Article is inactive");
+            ResponseEntity.badRequest().body("Article is inactive");
         } else if (article.getTypeStatus() == TypeStatusEnum.SUSPENDED) {
-            throw new IllegalArgumentException("Article is suspended");
+            ResponseEntity.badRequest().body("Article is suspended");
         } else if (article.getTypeStatus() == TypeStatusEnum.ACTIVE) {
-            return article;
+            ResponseEntity.ok(article);
         } else {
             throw new IllegalArgumentException("Article is in an unrecognized status");
         }
+        return null;
     }
 
     public List<Articles> getAllArticles(){

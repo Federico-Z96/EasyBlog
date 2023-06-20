@@ -6,6 +6,7 @@ import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,14 +24,14 @@ public class UsersService {
     public Users createUser(Users users){
         Optional<Users> userByEmail = usersRepository.findUserByEmail(users.getEmail());
         if (userByEmail.isPresent()){
-            throw new IllegalStateException("email already registered");
+            ResponseEntity.badRequest().body("Already register");
         }
        return usersRepository.save(users);
     }
 
     public Users getUserById(Long idUser){
         Optional<Users> usersOptional = usersRepository.findById(idUser);
-        if (usersOptional.isEmpty()) throw new IllegalArgumentException("User does not exist");
+        if (usersOptional.isEmpty()) ResponseEntity.badRequest().body("User does not exist");
         return usersOptional.get();
     }
 
@@ -55,7 +56,7 @@ public class UsersService {
 
     public Users deleteUser(Long idUser){
         Optional<Users> usersOptional = usersRepository.findById(idUser);
-        if (usersOptional.isEmpty()) throw new IllegalArgumentException("User does not exist");
+        if (usersOptional.isEmpty()) ResponseEntity.badRequest().body("User does not exist");
         return usersOptional.get();
     }
 

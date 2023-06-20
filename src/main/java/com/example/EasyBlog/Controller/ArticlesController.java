@@ -27,7 +27,13 @@ public class ArticlesController {
     }
 
     @GetMapping("/getArticlesActive/{id}")
-    public Articles getArticleById(@PathVariable Long idArticles) throws Exception {return articlesService.getArticlesById(idArticles);}
+    public ResponseEntity<?> getArticleById(@PathVariable Long idArticles) {
+        try{
+            return ResponseEntity.ok(articlesService.getArticlesById(idArticles));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Invalid arguments");
+        }
+    }
 
     @GetMapping("/getArticlesInactive")
     public Optional<List<Articles>> getArticlesInactive() {return articlesService.getAllInactiveArticles();
