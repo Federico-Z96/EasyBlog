@@ -43,7 +43,7 @@ public class ArticlesService {
         } else if (article.getTypeStatus() == TypeStatusEnum.ACTIVE) {
             ResponseEntity.ok(article);
         } else {
-            throw new IllegalArgumentException("Article is in an unrecognized status");
+            ResponseEntity.badRequest().body("Article is in an unrecognized status");
         }
         return null;
     }

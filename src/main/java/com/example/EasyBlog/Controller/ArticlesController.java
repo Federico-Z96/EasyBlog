@@ -5,6 +5,7 @@ import com.example.EasyBlog.Entity.Enum.TypeGenderArticlesEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Service.ArticlesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,32 +37,83 @@ public class ArticlesController {
     }
 
     @GetMapping("/getArticlesInactive")
-    public Optional<List<Articles>> getArticlesInactive() {return articlesService.getAllInactiveArticles();
+    public ResponseEntity<?> getArticlesInactive() {
+        Optional<List<Articles>> inactiveArticlesOptional = articlesService.getAllInactiveArticles();
+
+        if (inactiveArticlesOptional.isPresent()) {
+            List<Articles> inactiveArticles = inactiveArticlesOptional.get();
+            return ResponseEntity.ok(inactiveArticles);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
     }
 
     @GetMapping("/getArticlesSuspended")
-    public Optional<List<Articles>> getArticlesSuspended(){return articlesService.getAllSuspendedArticles();}
+    public ResponseEntity<?> getArticlesSuspended() {
+        Optional<List<Articles>> suspendedArticlesOptional = articlesService.getAllSuspendedArticles();
+
+        if (suspendedArticlesOptional.isPresent()) {
+            List<Articles> suspendedArticles = suspendedArticlesOptional.get();
+            return ResponseEntity.ok(suspendedArticles);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
 
     @GetMapping("/getAllArticles")
-    public List<Articles> getAllArticles(){return articlesService.getAllArticles();}
+    public ResponseEntity<?> getAllArticles() {
+        List<Articles> allArticles = articlesService.getAllArticles();
+
+        if (!allArticles.isEmpty()) {
+            return ResponseEntity.ok(allArticles);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
 
     @GetMapping("/getArticlesBy/{title}")
-    public Optional<Articles> getArticlesByTitle(@PathVariable String title){return articlesService.getArticlesByTitle(title);}
+    public ResponseEntity<?> getArticlesByTitle(@PathVariable String title) {
+        Optional<Articles> articlesOptional = articlesService.getArticlesByTitle(title);
+
+        if (articlesOptional.isPresent()) {
+            Articles article = articlesOptional.get();
+            return ResponseEntity.ok(article);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
 
     @GetMapping("/getArticleByGender/{gender}")
-    public Optional<List<Articles>> getArticlesByGender(@PathVariable TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesService.getArticlesByGender(typeGenderArticlesEnum);}
+    public ResponseEntity<?> getArticlesByGender(@PathVariable TypeGenderArticlesEnum typeGenderArticlesEnum) {
+        Optional<List<Articles>> articlesOptional = articlesService.getArticlesByGender(typeGenderArticlesEnum);
 
-    @PutMapping("/{id}/updateStatus")
-    public Optional<Articles> updateArticle(@PathVariable Long id){return articlesService.updateArticleStatus(id);}
+        if (articlesOptional.isPresent()) {
+            List<Articles> articlesByGender = articlesOptional.get();
+            return ResponseEntity.ok(articlesByGender);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
+
+    public ResponseEntity<?> updateArticle(@PathVariable Long id) {
+        Optional<Articles> updatedArticleOptional = articlesService.updateArticleStatus(id);
+
+        if (updatedArticleOptional.isPresent()) {
+            Articles updatedArticle = updatedArticleOptional.get();
+            return ResponseEntity.ok(updatedArticle);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
 
     @PutMapping("/{id}/update")
-    public ResponseEntity<Articles> updateArticle(@PathVariable Long id, @RequestBody Articles articles) {
+    public ResponseEntity<?> updateArticle(@PathVariable Long id, @RequestBody Articles articles) {
         Optional<Articles> updatedArticle = articlesService.updateArticle(id, articles);
 
         if (updatedArticle.isPresent()) {
             return ResponseEntity.ok(updatedArticle.get());
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
     }
 
