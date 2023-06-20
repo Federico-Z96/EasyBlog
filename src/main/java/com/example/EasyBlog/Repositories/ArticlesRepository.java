@@ -12,21 +12,21 @@ import java.util.Optional;
 
 public interface ArticlesRepository extends JpaRepository<Articles,Long> {
 
-    @Query("UPDATE articles SET type_status = ? WHERE id = ? ")
+    @Query("UPDATE Articles SET typeStatus = ? WHERE id = ? ")
     Optional<Articles> updateArticlesStatus(Integer articleId);
 
-    @Query("SELECT a FROM articles a WHERE a.type_gender = ?1")
+    @Query("SELECT a FROM Articles a WHERE a.typeGender = ?1")
     Optional<List<Articles>> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum);
 
-    @Query("SELECT a FROM articles a WHERE a.title = ?1")
+    @Query("SELECT a FROM Articles a WHERE a.title = ?1")
     Optional<Articles> findArticlesByTitle (String title);
-    @Query("SELECT a FROM articles a WHERE a.type_status='ACTIVE'")
+    @Query("SELECT a FROM Articles a WHERE a.typeStatus='ACTIVE'")
     Optional<List<Articles>>findArticlesByActive();
 
-    @Query("SELECT a FROM articles a WHERE a.type_status='INACTIVE'")
+    @Query("SELECT a FROM Articles a WHERE a.typeStatus='INACTIVE'")
     Optional<List<Articles>>findArticlesByInactive();
 
-    @Query("SELECT a FROM articles a WHERE a.type_status='SUSPENDED'")
+    @Query("SELECT a FROM Articles a WHERE a.typeStatus='SUSPENDED'")
     Optional<List<Articles>>findArticlesBySuspended();
 
 
