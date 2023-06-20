@@ -4,14 +4,10 @@ import com.example.EasyBlog.Entity.Articles;
 import com.example.EasyBlog.Entity.Enum.TypeGenderArticlesEnum;
 import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
 import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
-import com.example.EasyBlog.Entity.Roles;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Repositories.ArticlesRepository;
 import com.example.EasyBlog.Repositories.UsersRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -66,7 +62,7 @@ public class ArticlesService {
 
     public Optional<List<Articles>> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesRepository.getArticlesByGender(typeGenderArticlesEnum);}
 
-    public Optional<Articles> updateArticleStatus(Integer articleId){
+    public Optional<Articles> updateArticleStatus(Long articleId){
         return articlesRepository.updateArticlesStatus(articleId);}
 
     public Optional<Articles> updateArticle(Long id, Articles articles){
