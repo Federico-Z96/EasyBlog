@@ -17,12 +17,12 @@ public class CommentsController {
     private CommentsService commentsService;
 
     @PostMapping("/create")
-    public ResponseEntity <Comments> createComments(@RequestBody Comments comments){
-        return ResponseEntity.ok(commentsService.createComments(comments));
+    public ResponseEntity<String> createComments(@RequestBody Comments comments, Long id){
+        return commentsService.createComments(comments,id);
     }
     @PutMapping("/update/{id}")
     public ResponseEntity <?> updateComments(@RequestBody Comments comments,@PathVariable Long id){
-        Comments updatedComments = commentsService.updateComments(comments,id);
+        ResponseEntity<String> updatedComments = commentsService.updateComments(comments,id);
         if (updatedComments != null){
             return ResponseEntity.ok(updatedComments);
         }else {
