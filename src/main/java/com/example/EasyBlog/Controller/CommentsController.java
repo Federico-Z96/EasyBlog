@@ -30,12 +30,35 @@ public class CommentsController {
         }
     }
     @GetMapping("/getAllActive")
-    public Optional<List<Comments>> getAllActiveComments(){return commentsService.getAllActiveComments();}
+    public ResponseEntity <?> getAllActiveComments() {
+        Optional<List<Comments>> activeComments = commentsService.getAllActiveComments();
 
+        if (activeComments.isPresent()) {
+            return ResponseEntity.ok(activeComments.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("not found");
+        }
+    }
     @GetMapping("/getAllInactive")
-    public Optional<List<Comments>> getAllInactiveComments(){return commentsService.getAllInactiveComments();}
+    public ResponseEntity<?> getAllInactiveComments() {
+        Optional <List<Comments>> inactiveComments = commentsService.getAllInactiveComments();
+        if (inactiveComments.isPresent()) {
+            return ResponseEntity.ok(inactiveComments.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("not found");
+        }
+    }
+
     @GetMapping("/getAllSuspended")
-    public Optional<List<Comments>> getAllSuspendedComments(){return commentsService.getAllSuspendedComments();}
+    public ResponseEntity<?> getAllSuspendedComments() {
+        Optional<List<Comments>> getAllSuspendedComments = commentsService.getAllSuspendedComments();
+        if (getAllSuspendedComments.isPresent()){
+            return ResponseEntity.ok(getAllSuspendedComments.get());
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("not found");
+        }
+    }
+
 
 
 }
