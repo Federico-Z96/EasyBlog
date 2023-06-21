@@ -58,9 +58,9 @@ public class UsersService {
         Optional<Users> updateUser = usersRepository.findById(id);
 
         if (updateUser.isEmpty()) {
-            return usersRepository.save(users);
-        } else {
             return null;
+        } else {
+            return usersRepository.save(users);
         }
 
     }
