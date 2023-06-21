@@ -31,7 +31,9 @@ public class UsersService {
 
     public Users getUserById(Long idUser){
         Optional<Users> usersOptional = usersRepository.findById(idUser);
-        if (usersOptional.isEmpty()) ResponseEntity.badRequest().body("User does not exist");
+        if (usersOptional.isEmpty()) {
+            ResponseEntity.badRequest().body("User does not exist");
+        }
         return usersOptional.get();
     }
 
@@ -52,7 +54,16 @@ public class UsersService {
     }
 
 
-    public Users updateUser (Users users){return usersRepository.save(users); }
+    public Users updateUser (Users users, Long id){
+        Optional<Users> updateUser = usersRepository.findById(id);
+
+        if (updateUser.isEmpty()) {
+            return usersRepository.save(users);
+        } else {
+            return null;
+        }
+
+    }
 
     public Users deleteUser(Long idUser){
         Optional<Users> usersOptional = usersRepository.findById(idUser);
