@@ -99,4 +99,50 @@ public class UsersController {
     }
 
 
+    @GetMapping("/getUsersWriter")
+    public ResponseEntity<?> getAllWriter() {
+        Optional<List<Users>> writerUsers = usersService.getAllWriter();
+
+        if (writerUsers.isPresent()) {
+            return ResponseEntity.ok(writerUsers.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
+
+
+    @GetMapping("/getReaderUsers")
+    public ResponseEntity<?> getUsersReader() {
+        Optional<List<Users>> usersReader = usersService.getAllReader();
+
+        if (usersReader.isPresent()) {
+            return ResponseEntity.ok(usersReader.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
+
+    @GetMapping("/getUsersMod")
+    public ResponseEntity<?> getUsersMod() {
+        Optional<List<Users>> modUsers = usersService.getAllMod();
+
+        if (modUsers.isPresent()) {
+            return ResponseEntity.ok(modUsers.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
+
+    @GetMapping("/getUsersAdmin")
+    public ResponseEntity<?> getUsersAdmin() {
+        Optional<List<Users>> adminUsers = usersService.getAllAdmin();
+
+        if (adminUsers.isPresent()) {
+            return ResponseEntity.ok(adminUsers.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
+
+
 }

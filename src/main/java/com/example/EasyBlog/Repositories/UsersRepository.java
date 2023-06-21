@@ -9,8 +9,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 public interface UsersRepository extends JpaRepository<Users,Long> {
+    @Query("SELECT u FROM users u WHERE u.typeRoleEnum = 'READER'")
+    Optional <List<Users>> getAllReader ();
+    @Query("SELECT u FROM users u WHERE u.typeRoleEnum = 'ADMIN'")
+    Optional <List<Users>> getAllAdmin ();
+    @Query("SELECT u FROM users u WHERE u.typeRoleEnum = 'MOD'")
+    Optional <List<Users>> getAllMod ();
 
-    @Query("SELECT u FROM users u WHERE u.typeSole = 'WRITER'")
+    @Query("SELECT u FROM users u WHERE u.typeRoleEnum = 'WRITER'")
     Optional <List<Users>> findByTypeRole ();
 
     @Query("SELECT u FROM users u WHERE u.email = ?1")

@@ -72,4 +72,9 @@ public class UsersService {
         return deletedUsers;
     }
 
+    public Optional<List<Users>> getAllWriter(){return usersRepository.findByTypeRole();}
+    public Optional<List<Users>> getAllMod(){return usersRepository.getAllMod();}
+    public Optional<List<Users>> getAllAdmin(){return usersRepository.getAllAdmin();}
+    public Optional<List<Users>> getAllReader(){return usersRepository.getAllReader();}
+
     }
