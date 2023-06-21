@@ -9,6 +9,8 @@ import com.example.EasyBlog.Repositories.ArticlesRepository;
 import com.example.EasyBlog.Repositories.CommentsRepository;
 import com.example.EasyBlog.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,11 +26,16 @@ public class CommentsService {
     @Autowired
     private static ArticlesRepository articlesRepository;
 
-    public Comments createComments(Comments comments,String email, String title){
-        if (usersRepository.findUserByEmail(email).isPresent() && articlesRepository.findArticlesByTitle(title).isPresent()){
 
-        }
+    public Comments createComments(Comments comments) {
         return commentsRepository.save(comments);
+    }
+    public Comments updateComments(Comments comments, Long id) {
+        Optional<Comments> updateComments = commentsRepository.findById(id);
+        if (updateComments.isEmpty()){
+            ResponseEntity.badRequest().body("Comments not found");
+        }
+            return commentsRepository.save(comments);
     }
 
     public Optional<List<Comments>> getAllActiveComments(){
