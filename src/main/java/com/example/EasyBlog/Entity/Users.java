@@ -27,7 +27,7 @@ public class Users {
     private boolean deleted;
     @Column(nullable = false, name = "type_status")
     private TypeStatusEnum typeStatus;
-    @ManyToOne
+    @Column(nullable = false, name = "type_role")
     private TypeRoleEnum roles;
 
     public Users(Long id, String username, String password, String email, Date createdAt, Date updatedAt, TypeStatusEnum typeStatus, TypeRoleEnum roles) {
