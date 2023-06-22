@@ -95,17 +95,6 @@ public class ArticlesController {
         }
     }
 
-    public ResponseEntity<?> updateArticle(@PathVariable Long id) {
-        Optional<Articles> updatedArticleOptional = articlesService.updateArticleStatus(id);
-
-        if (updatedArticleOptional.isPresent()) {
-            Articles updatedArticle = updatedArticleOptional.get();
-            return ResponseEntity.ok(updatedArticle);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
-        }
-    }
-
     @PutMapping("/{id}/update")
     public ResponseEntity<?> updateArticle(@PathVariable Long id, @RequestBody Articles articles) {
         Optional<Articles> updatedArticle = articlesService.updateArticle(id, articles);
