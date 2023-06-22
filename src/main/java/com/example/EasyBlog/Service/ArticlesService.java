@@ -18,9 +18,9 @@ import java.util.Optional;
 @Service
 public class ArticlesService {
     @Autowired
-    private static ArticlesRepository articlesRepository;
+    private ArticlesRepository articlesRepository;
     @Autowired
-    private static UsersRepository usersRepository;
+    private  UsersRepository usersRepository;
 
     public Articles createArticles(Articles articles,Users users) {
         Optional<Articles> articleByTitle = articlesRepository.findArticlesByTitle(articles.getTitle());
@@ -63,7 +63,7 @@ public class ArticlesService {
 
     public Optional<Articles> getArticlesByTitle(String title){return articlesRepository.findArticlesByTitle(title);}
 
-    public Optional<List<Articles>> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesRepository.getArticlesByGender(typeGenderArticlesEnum);}
+//   public Optional<Articles> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesRepository.getArticlesByGender(typeGenderArticlesEnum);}
 
     public Optional<Articles> updateArticleStatus(Long articleId){
         return articlesRepository.updateArticlesStatus(articleId);}

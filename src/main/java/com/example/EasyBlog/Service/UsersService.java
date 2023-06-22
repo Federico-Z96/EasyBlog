@@ -14,78 +14,78 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class UsersService {
-    @Autowired
-    private UsersRepository usersRepository;
-
-    public UsersService(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-    }
-
-    public Users createUser(Users users){
-        Optional<Users> userByEmail = usersRepository.findUserByEmail(users.getEmail());
-        if (userByEmail.isPresent()){
-            ResponseEntity.badRequest().body("Already register");
-        }
-       return usersRepository.save(users);
-    }
-
-    public Users getUserById(Long idUser){
-        Optional<Users> usersOptional = usersRepository.findById(idUser);
-        if (usersOptional.isEmpty()) {
-            ResponseEntity.badRequest().body("User does not exist");
-        }
-        return usersOptional.get();
-    }
-
-    public List<Users> getAllUsers(){
-        return usersRepository.findAll();
-    }
-
-    public Optional<List<Users>> getAllActiveUsers(){
-        return usersRepository.findUsersByActive();
-    }
-
-    public Optional<List<Users>> getAllInactiveUsers(){
-        return usersRepository.findUsersByInactive();
-    }
-
-    public Optional<List<Users>> getAllSuspendedUsers(){
-        return usersRepository.findUsersBySuspended();
-    }
-
-
-    public Users updateUser (Users users, Long id){
-        Optional<Users> updateUser = usersRepository.findById(id);
-
-        if (updateUser.isEmpty()) {
-            return null;
-        } else {
-            return usersRepository.save(users);
-        }
-
-    }
-
-    public Users deleteUser(Long idUser){
-        Optional<Users> usersOptional = usersRepository.findById(idUser);
-        if (usersOptional.isEmpty()) ResponseEntity.badRequest().body("User does not exist");
-        return usersOptional.get();
-    }
-
-    public List<Users> deleteAllUsers(){
-        List<Users> deletedUsers = new ArrayList<>();
-        List<Users> allUsers = usersRepository.findAll();
-
-        for (Users user : allUsers) {
-            deletedUsers.add(user);
-            usersRepository.delete(user);
-        }
-
-        return deletedUsers;
-    }
-
-    public Optional<List<Users>> getAllWriter(){return usersRepository.findByTypeRole();}
-    public Optional<List<Users>> getAllMod(){return usersRepository.getAllMod();}
-    public Optional<List<Users>> getAllAdmin(){return usersRepository.getAllAdmin();}
-    public Optional<List<Users>> getAllReader(){return usersRepository.getAllReader();}
+//    @Autowired
+//    private UsersRepository usersRepository;
+//
+//    public UsersService(UsersRepository usersRepository) {
+//        this.usersRepository = usersRepository;
+//    }
+//
+//    public Users createUser(Users users){
+//        Optional<Users> userByEmail = usersRepository.findUserByEmail(users.getEmail());
+//        if (userByEmail.isPresent()){
+//            ResponseEntity.badRequest().body("Already register");
+//        }
+//       return usersRepository.save(users);
+//    }
+//
+//    public Users getUserById(Long idUser){
+//        Optional<Users> usersOptional = usersRepository.findById(idUser);
+//        if (usersOptional.isEmpty()) {
+//            ResponseEntity.badRequest().body("User does not exist");
+//        }
+//        return usersOptional.get();
+//    }
+//
+//    public List<Users> getAllUsers(){
+//        return usersRepository.findAll();
+//    }
+//
+//    public Optional<List<Users>> getAllActiveUsers(){
+//        return usersRepository.findUsersByActive();
+//    }
+//
+//    public Optional<List<Users>> getAllInactiveUsers(){
+//        return usersRepository.findUsersByInactive();
+//    }
+//
+//    public Optional<List<Users>> getAllSuspendedUsers(){
+//        return usersRepository.findUsersBySuspended();
+//    }
+//
+//
+//    public Users updateUser (Users users, Long id){
+//        Optional<Users> updateUser = usersRepository.findById(id);
+//
+//        if (updateUser.isEmpty()) {
+//            return null;
+//        } else {
+//            return usersRepository.save(users);
+//        }
+//
+//    }
+//
+//    public Users deleteUser(Long idUser){
+//        Optional<Users> usersOptional = usersRepository.findById(idUser);
+//        if (usersOptional.isEmpty()) ResponseEntity.badRequest().body("User does not exist");
+//        return usersOptional.get();
+//    }
+//
+//    public List<Users> deleteAllUsers(){
+//        List<Users> deletedUsers = new ArrayList<>();
+//        List<Users> allUsers = usersRepository.findAll();
+//
+//        for (Users user : allUsers) {
+//            deletedUsers.add(user);
+//            usersRepository.delete(user);
+//        }
+//
+//        return deletedUsers;
+//    }
+//
+//    //public Optional<List<Users>> getAllWriter(){return usersRepository.findByTypeRole();}
+//    public Optional<List<Users>> getAllMod(){return usersRepository.getAllMod();}
+//    public Optional<List<Users>> getAllAdmin(){return usersRepository.getAllAdmin();}
+//    //public Optional<List<Users>> getAllReader(){return usersRepository.getAllReader();}
 
     }

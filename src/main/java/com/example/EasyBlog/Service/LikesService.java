@@ -16,11 +16,11 @@ import java.util.Optional;
 @Service
 public class LikesService {
     @Autowired
-    private static UsersRepository usersRepository;
+    private  UsersRepository usersRepository;
     @Autowired
-    private static ArticlesRepository articlesRepository;
+    private  ArticlesRepository articlesRepository;
     @Autowired
-    private static LikesRepository likesRepository;
+    private  LikesRepository likesRepository;
 
     public Optional<Likes> getLikeById(Long likeId) {
         return likesRepository.findById(likeId);

@@ -17,11 +17,11 @@ import java.util.Optional;
 @Service
 public class CommentsService {
     @Autowired
-    private static CommentsRepository commentsRepository;
+    private  CommentsRepository commentsRepository;
     @Autowired
-    private static UsersRepository usersRepository;
+    private UsersRepository usersRepository;
     @Autowired
-    private static ArticlesRepository articlesRepository;
+    private ArticlesRepository articlesRepository;
 
 
     public ResponseEntity<String> createComments(Comments comments, Long id) {
