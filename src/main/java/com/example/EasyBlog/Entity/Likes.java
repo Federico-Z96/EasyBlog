@@ -12,8 +12,6 @@ public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, name = "like_date")
-    private Date likeDate;
     @Column(nullable = false, name = "created_at")
     private Date createdAt;
     @Column(nullable = false, name = "updated_at")
@@ -23,9 +21,8 @@ public class Likes {
     @ManyToOne
     private Articles articles;
 
-    public Likes(Long id, Date likeDate, Date createdAt, Date updatedAt, Users users, Articles articles) {
+    public Likes(Long id, Date createdAt, Date updatedAt, Users users, Articles articles) {
         this.id = id;
-        this.likeDate = likeDate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.users = users;
@@ -38,14 +35,6 @@ public class Likes {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Date getLikeDate() {
-        return likeDate;
-    }
-
-    public void setLikeDate(Date likeDate) {
-        this.likeDate = likeDate;
     }
 
     public Date getCreatedAt() {
