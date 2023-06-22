@@ -13,25 +13,22 @@ public class Comments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false,name = "created_at")
+    @Column(nullable = false,name = "comment_body")
     private String commentText;
-    @Column(nullable = false, name = "comment_date")
-    private Date commentDate;
     @Column(nullable = false, name = "created_at")
     private Date createdAt;
     @Column(nullable = false, name = "updated_at")
     private Date updatedAt;
-    @Column(nullable = false, name = "updated_at")
+    @Column(nullable = false, name = "type_status")
     private TypeStatusEnum typeStatus;
     @ManyToOne
     private Users users;
     @ManyToOne
     private Articles articles;
 
-    public Comments(Long id, String commentText, Date commentDate, Date createdAt, Date updatedAt, TypeStatusEnum typeStatus, Users users, Articles articles) {
+    public Comments(Long id, String commentText, Date createdAt, Date updatedAt, TypeStatusEnum typeStatus, Users users, Articles articles) {
         this.id = id;
         this.commentText = commentText;
-        this.commentDate = commentDate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.typeStatus = typeStatus;
@@ -53,14 +50,6 @@ public class Comments {
 
     public void setCommentText(String commentText) {
         this.commentText = commentText;
-    }
-
-    public Date getCommentDate() {
-        return commentDate;
-    }
-
-    public void setCommentDate(Date commentDate) {
-        this.commentDate = commentDate;
     }
 
     public Date getCreatedAt() {
