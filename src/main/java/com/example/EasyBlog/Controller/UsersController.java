@@ -2,7 +2,6 @@ package com.example.EasyBlog.Controller;
 
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Service.UsersService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +22,8 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Users> createUser(@RequestBody Users users) {
-        Users createdUser = usersService.createUser(users);
-        return ResponseEntity.ok(createdUser);
+    public ResponseEntity<String> createUser(@RequestBody Users users) {
+        return usersService.createUser(users);
     }
 
     @GetMapping("/get/{id}")

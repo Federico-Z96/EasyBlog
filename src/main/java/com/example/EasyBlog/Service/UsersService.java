@@ -1,15 +1,11 @@
 package com.example.EasyBlog.Service;
 
-import com.example.EasyBlog.Entity.Articles;
-import com.example.EasyBlog.Entity.Comments;
-import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -20,12 +16,13 @@ public class UsersService {
        this.usersRepository = usersRepository;
    }
 
-    public Users createUser(Users users){
+    public ResponseEntity<String> createUser(Users users){
         Optional<Users> userByEmail = usersRepository.findUserByEmail(users.getEmail());
         if (userByEmail.isPresent()){
-            ResponseEntity.badRequest().body("Already register");
+           return ResponseEntity.badRequest().body("Already register");
         }
-       return usersRepository.save(users);
+        usersRepository.save(users);
+        return ResponseEntity.ok().body("User register");
     }
 
     public Users getUserById(Long idUser){
