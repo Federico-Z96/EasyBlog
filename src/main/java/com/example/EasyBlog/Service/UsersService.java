@@ -25,12 +25,13 @@ public class UsersService {
         return ResponseEntity.ok().body("User register");
     }
 
-    public Users getUserById(Long idUser){
+    public ResponseEntity<String> getUserById(Long idUser){
         Optional<Users> usersOptional = usersRepository.findById(idUser);
         if (usersOptional.isEmpty()) {
-            ResponseEntity.badRequest().body("User does not exist");
+           return ResponseEntity.badRequest().body("User does not exist");
         }
-        return usersOptional.get();
+        usersOptional.get();
+        return ResponseEntity.ok().body("id found");
     }
 
     public List<Users> getAllUsers(){

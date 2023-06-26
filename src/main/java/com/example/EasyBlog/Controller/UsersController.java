@@ -28,13 +28,7 @@ public class UsersController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long idUser) {
-        Users user = usersService.getUserById(idUser);
-
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
-        }
+        return usersService.getUserById(idUser);
     }
 
     @GetMapping("/getAll")
