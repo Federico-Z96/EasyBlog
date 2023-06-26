@@ -83,17 +83,17 @@ public class ArticlesController {
         }
     }
 
-//    @GetMapping("/getArticleByGender/{gender}")
-//    public ResponseEntity<?> getArticlesByGender(@PathVariable TypeGenderArticlesEnum typeGenderArticlesEnum) {
-//        Optional<Articles> articlesOptional = articlesService.getArticlesByGender(typeGenderArticlesEnum);
-//
-//        if (articlesOptional.isPresent()) {
-//            Articles articlesByGender = articlesOptional.get();
-//            return ResponseEntity.ok(articlesByGender);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
-//        }
-//    }
+    @GetMapping("/getArticleByGender/{gender}")
+    public ResponseEntity<?> getArticlesByGender(@PathVariable TypeGenderArticlesEnum typeGenderArticlesEnum) {
+        Optional<Articles> articlesOptional = articlesService.getArticlesByGender(typeGenderArticlesEnum);
+
+        if (articlesOptional.isPresent()) {
+            Articles articlesByGender = articlesOptional.get();
+            return ResponseEntity.ok(articlesByGender);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
 
     @PutMapping("/{id}/update")
     public ResponseEntity<?> updateArticle(@PathVariable Long id, @RequestBody Articles articles) {

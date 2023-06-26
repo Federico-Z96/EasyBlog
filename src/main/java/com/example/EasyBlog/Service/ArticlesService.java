@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,7 +64,7 @@ public class ArticlesService {
 
     public Optional<Articles> getArticlesByTitle(String title){return articlesRepository.findArticlesByTitle(title);}
 
-//   public Optional<Articles> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesRepository.getArticlesByGender(typeGenderArticlesEnum);}
+   public Optional<Articles> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesRepository.getArticlesByGender(typeGenderArticlesEnum);}
 
     public Optional<Articles> updateArticleStatus(Long articleId){
         return articlesRepository.updateArticlesStatus(articleId);}

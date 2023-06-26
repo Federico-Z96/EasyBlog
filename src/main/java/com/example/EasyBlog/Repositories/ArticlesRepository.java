@@ -15,17 +15,17 @@ public interface ArticlesRepository extends JpaRepository<Articles,Long> {
     @Query("UPDATE Articles SET typeStatus = :status WHERE id = :articleId ")
     Optional<Articles> updateArticlesStatus(Long articleId);
 
-//   @Query("SELECT a FROM Articles a WHERE a.typeGender = :gender")
-//   Optional<Articles> getArticlesByGender(@Param("typeGender") TypeGenderArticlesEnum typeGenderArticlesEnum);
+   @Query("SELECT a FROM Articles a WHERE a.typeGender = :gender")
+   Optional<Articles> getArticlesByGender(@Param("gender") TypeGenderArticlesEnum typeGenderArticlesEnum);
 
     @Query("SELECT a FROM Articles a WHERE a.title =:title ")
     Optional<Articles> findArticlesByTitle (String title);
-    @Query("SELECT a FROM Articles a WHERE a.typeStatus='ACTIVE'")
+    @Query("SELECT a FROM Articles a WHERE a.typeStatus='active'")
     Optional<List<Articles>>findArticlesByActive();
 
-    @Query("SELECT a FROM Articles a WHERE a.typeStatus='INACTIVE'")
+    @Query("SELECT a FROM Articles a WHERE a.typeStatus='inactive'")
     Optional<List<Articles>>findArticlesByInactive();
 
-    @Query("SELECT a FROM Articles a WHERE a.typeStatus='SUSPENDED'")
+    @Query("SELECT a FROM Articles a WHERE a.typeStatus='Suspended'")
     Optional<List<Articles>>findArticlesBySuspended();
 }

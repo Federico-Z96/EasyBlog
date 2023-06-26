@@ -11,13 +11,13 @@ import java.util.Optional;
 
 @Repository
 public interface CommentsRepository extends JpaRepository<Comments,Long> {
-    @Query("SELECT c FROM Comments c WHERE c.typeStatus='ACTIVE'")
+    @Query("SELECT c FROM Comments c WHERE c.typeStatus='active'")
     Optional<List<Comments>> findCommentsByActive();
 
-    @Query("SELECT c FROM Comments c WHERE c.typeStatus='INACTIVE'")
+    @Query("SELECT c FROM Comments c WHERE c.typeStatus='inactive'")
     Optional<List<Comments>>findCommentsByInactive();
 
-    @Query("SELECT c FROM Comments c WHERE c.typeStatus='SUSPENDED'")
+    @Query("SELECT c FROM Comments c WHERE c.typeStatus='Suspended'")
     Optional<List<Comments>>findCommentsBySuspended();
 
 }
