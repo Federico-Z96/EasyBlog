@@ -23,14 +23,18 @@ public class Articles {
     @Column(nullable = false, name = "content")
     private String content;
     @Column(nullable = false, name = "type_status")
+    @Enumerated(EnumType.STRING)
     private TypeStatusEnum typeStatus;
 
     @Column(nullable = false, name = "type_gender")
+    @Enumerated(EnumType.STRING)
     private TypeGenderArticlesEnum typeGender;
 
     @ManyToOne
     @JoinColumn(name = "id_author", referencedColumnName = "id")
     private Users users;
+
+    public Articles(){}
 
     public Articles(Long id, String title, Date createdAt, Date updatedAt, String content, Users users, TypeStatusEnum typeStatus, TypeGenderArticlesEnum typeGender) {
         this.id = id;

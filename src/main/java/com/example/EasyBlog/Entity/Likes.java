@@ -21,6 +21,8 @@ public class Likes {
     @ManyToOne
     private Articles articles;
 
+    public Likes(){}
+
     public Likes(Long id, Date createdAt, Date updatedAt, Users users, Articles articles) {
         this.id = id;
         this.createdAt = createdAt;

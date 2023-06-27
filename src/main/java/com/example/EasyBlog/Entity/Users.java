@@ -18,7 +18,6 @@ public class Users {
     @Column(nullable = false, name = "username")
     private String username;
     @Column(nullable = false,name = "password" )
-
     private String password;
     @Column(nullable = false, name = "email" )
     private String email;
@@ -35,9 +34,7 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private TypeRoleEnum roles;
 
-    public Users(){
-
-    }
+    public Users(){}
 
     public Users(Long id, String username, String password, String email, LocalDateTime createdAt, LocalDateTime updatedAt, TypeStatusEnum typeStatus, TypeRoleEnum roles) {
         this.id = id;

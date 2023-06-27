@@ -20,11 +20,14 @@ public class Comments {
     @Column(nullable = false, name = "updated_at")
     private Date updatedAt;
     @Column(nullable = false, name = "type_status")
+    @Enumerated(EnumType.STRING)
     private TypeStatusEnum typeStatus;
     @ManyToOne
     private Users users;
     @ManyToOne
     private Articles articles;
+
+    public Comments(){}
 
     public Comments(Long id, String commentText, Date createdAt, Date updatedAt, TypeStatusEnum typeStatus, Users users, Articles articles) {
         this.id = id;
