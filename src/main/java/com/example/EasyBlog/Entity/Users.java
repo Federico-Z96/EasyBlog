@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -17,22 +18,28 @@ public class Users {
     @Column(nullable = false, name = "username")
     private String username;
     @Column(nullable = false,name = "password" )
-    @JsonIgnore
+
     private String password;
     @Column(nullable = false, name = "email" )
     private String email;
     @Column(nullable = false, name = "created_at")
-    private Date createdAt;
+    private LocalDateTime createdAt;
     @Column(nullable = false, name = "updated_at")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
     @Column(nullable = false, name = "deleted")
     private boolean deleted;
     @Column(nullable = false, name = "type_status")
+    @Enumerated(EnumType.STRING)
     private TypeStatusEnum typeStatus;
     @Column(nullable = false, name = "type_role")
+    @Enumerated(EnumType.STRING)
     private TypeRoleEnum roles;
 
-    public Users(Long id, String username, String password, String email, Date createdAt, Date updatedAt, TypeStatusEnum typeStatus, TypeRoleEnum roles) {
+    public Users(){
+
+    }
+
+    public Users(Long id, String username, String password, String email, LocalDateTime createdAt, LocalDateTime updatedAt, TypeStatusEnum typeStatus, TypeRoleEnum roles) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -75,19 +82,19 @@ public class Users {
         this.email = email;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
