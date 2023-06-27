@@ -2,6 +2,7 @@ package com.example.EasyBlog.Entity;
 
 import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
 import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -16,6 +17,7 @@ public class Users {
     @Column(nullable = false, name = "username")
     private String username;
     @Column(nullable = false,name = "password" )
+    @JsonIgnore
     private String password;
     @Column(nullable = false, name = "email" )
     private String email;
