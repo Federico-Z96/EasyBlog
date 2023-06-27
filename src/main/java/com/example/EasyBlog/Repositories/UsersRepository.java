@@ -11,27 +11,27 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface UsersRepository extends JpaRepository<Users,Long> {
-    @Query("SELECT u FROM Users u WHERE u.roles = 'Reader'")
-    Optional <List<Users>> getAllReader ();
-    @Query("SELECT u FROM Users u WHERE u.roles = 'Admin'")
-    Optional <List<Users>> getAllAdmin ();
-    @Query("SELECT u FROM Users u WHERE u.roles = 'Mod'")
-    Optional <List<Users>> getAllMod ();
+    @Query("SELECT u FROM Users u WHERE u.roles = 0")
+    List<Users> getAllReader ();
+    @Query("SELECT u FROM Users u WHERE u.roles = 3")
+    List<Users> getAllAdmin ();
+    @Query("SELECT u FROM Users u WHERE u.roles = 2")
+    List<Users> getAllMod ();
 
-    @Query("SELECT u FROM Users u WHERE u.roles = 'Writer'")
-    Optional <List<Users>> findByTypeRole ();
+    @Query("SELECT u FROM Users u WHERE u.roles = 1")
+    List<Users> findByTypeRole ();
 
 
     @Query("SELECT u FROM Users u WHERE u.email = :email")
     Optional<Users> findUserByEmail(@Param("email") String email);
 
-    @Query("SELECT u FROM Users u WHERE u.typeStatus='active'")
-    Optional<List<Users>> findUsersByActive();
+    @Query("SELECT u FROM Users u WHERE u.typeStatus=0")
+    List<Users> findUsersByActive();
 
-    @Query("SELECT u FROM Users u WHERE u.typeStatus='inactive'")
-    Optional<List<Users>>findUsersByInactive();
+    @Query("SELECT u FROM Users u WHERE u.typeStatus=1")
+    List<Users> findUsersByInactive();
 
-    @Query("SELECT u FROM Users u WHERE u.typeStatus='suspended'")
-    Optional<List<Users>>findUsersBySuspended();
+    @Query("SELECT u FROM Users u WHERE u.typeStatus=2")
+    List<Users> findUsersBySuspended();
 
 }

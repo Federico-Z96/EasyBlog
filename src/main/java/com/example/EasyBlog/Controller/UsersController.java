@@ -26,9 +26,16 @@ public class UsersController {
         return usersService.createUser(users);
     }
 
+
+
+
     @GetMapping("/get/{id}")
-    public ResponseEntity<?> getUser(@PathVariable Long idUser) {
-        return usersService.getUserById(idUser);
+    public ResponseEntity<Users> getUser(@PathVariable ("id") Long idUser) {
+            Users users = usersService.getUserById(idUser);
+            if (users == null){
+                return ResponseEntity.badRequest().build();
+            }
+        return ResponseEntity.ok().body(usersService.getUserById(idUser));
     }
 
     @GetMapping("/getAll")
@@ -43,11 +50,11 @@ public class UsersController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUser(@RequestBody Users users, @PathVariable Long id) {
+    public ResponseEntity<String> updateUser(@RequestBody Users users, @PathVariable ("id") Long id) {
         Users updatedUser = usersService.updateUser(users,id);
 
         if (updatedUser != null) {
-            return ResponseEntity.ok(updatedUser);
+            return ResponseEntity.ok().body("Success update");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
 
@@ -62,30 +69,30 @@ public class UsersController {
 //
     @GetMapping("/getUsersActive")
     public ResponseEntity<?> getUsersActive() {
-        Optional<List<Users>> activeUsers = usersService.getAllActiveUsers();
+        List<Users> activeUsers = usersService.getAllActiveUsers();
 
-        if (activeUsers.isPresent()) {
-            return ResponseEntity.ok(activeUsers.get());
+        if (activeUsers.isEmpty()) {
+            return ResponseEntity.ok(activeUsers);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
     }
     @GetMapping("/getUsersInactive")
     public ResponseEntity<?> getUsersInactive() {
-        Optional<List<Users>> inactiveUsers = usersService.getAllInactiveUsers();
+        List<Users> inactiveUsers = usersService.getAllInactiveUsers();
 
-        if (inactiveUsers.isPresent()) {
-            return ResponseEntity.ok(inactiveUsers.get());
+        if (inactiveUsers.isEmpty()) {
+            return ResponseEntity.ok(inactiveUsers);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
     }
     @GetMapping("/getUsersSuspended")
     public ResponseEntity<?> getUsersSuspended() {
-        Optional<List<Users>> suspendedUsers = usersService.getAllSuspendedUsers();
+        List<Users> suspendedUsers = usersService.getAllSuspendedUsers();
 
-        if (suspendedUsers.isPresent()) {
-            return ResponseEntity.ok(suspendedUsers.get());
+        if (!suspendedUsers.isEmpty()) {
+            return ResponseEntity.ok(suspendedUsers);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
@@ -94,10 +101,10 @@ public class UsersController {
 
     @GetMapping("/getUsersWriter")
     public ResponseEntity<?> getAllWriter() {
-        Optional<List<Users>> writerUsers = usersService.getAllWriter();
+        List<Users> writerUsers = usersService.getAllWriter();
 
-        if (writerUsers.isPresent()) {
-            return ResponseEntity.ok(writerUsers.get());
+        if (!writerUsers.isEmpty()) {
+            return ResponseEntity.ok((writerUsers));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
@@ -106,10 +113,10 @@ public class UsersController {
 
     @GetMapping("/getReaderUsers")
     public ResponseEntity<?> getUsersReader() {
-        Optional<List<Users>> usersReader = usersService.getAllReader();
+        List<Users> usersReader = usersService.getAllReader();
 
-        if (usersReader.isPresent()) {
-            return ResponseEntity.ok(usersReader.get());
+        if (!usersReader.isEmpty()) {
+            return ResponseEntity.ok(usersReader);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
@@ -117,10 +124,10 @@ public class UsersController {
 
     @GetMapping("/getUsersMod")
     public ResponseEntity<?> getUsersMod() {
-        Optional<List<Users>> modUsers = usersService.getAllMod();
+        List<Users> modUsers = usersService.getAllMod();
 
-        if (modUsers.isPresent()) {
-            return ResponseEntity.ok(modUsers.get());
+        if (!modUsers.isEmpty()) {
+            return ResponseEntity.ok(modUsers);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
@@ -128,10 +135,10 @@ public class UsersController {
 
     @GetMapping("/getUsersAdmin")
     public ResponseEntity<?> getUsersAdmin() {
-        Optional<List<Users>> adminUsers = usersService.getAllAdmin();
+        List<Users> adminUsers = usersService.getAllAdmin();
 
-        if (adminUsers.isPresent()) {
-            return ResponseEntity.ok(adminUsers.get());
+        if (!adminUsers.isEmpty()) {
+            return ResponseEntity.ok(adminUsers);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -25,39 +27,45 @@ public class UsersService {
         return ResponseEntity.ok().body("User register");
     }
 
-    public ResponseEntity<String> getUserById(Long idUser){
+    public Users getUserById(Long idUser){
         Optional<Users> usersOptional = usersRepository.findById(idUser);
         if (usersOptional.isEmpty()) {
-           return ResponseEntity.badRequest().body("User does not exist");
+           return null;
         }
-        usersOptional.get();
-        return ResponseEntity.ok().body("id found");
+        return usersOptional.get();
     }
 
     public List<Users> getAllUsers(){
         return usersRepository.findAll();
     }
 
-    public Optional<List<Users>> getAllActiveUsers(){
+    public List<Users> getAllActiveUsers(){
         return usersRepository.findUsersByActive();
     }
 
-    public Optional<List<Users>> getAllInactiveUsers(){
+    public List<Users> getAllInactiveUsers(){
         return usersRepository.findUsersByInactive();
     }
 
-    public Optional<List<Users>> getAllSuspendedUsers(){
+    public List<Users> getAllSuspendedUsers(){
         return usersRepository.findUsersBySuspended();
     }
 
 
     public Users updateUser (Users users, Long id){
-        Optional<Users> updateUser = usersRepository.findById(id);
+        Optional<Users> optionalUpdateUser = usersRepository.findById(id);
 
-        if (updateUser.isEmpty()) {
+        if (optionalUpdateUser.isEmpty()) {
             return null;
         } else {
-            return usersRepository.save(users);
+          Users updateUser = optionalUpdateUser.get();
+          updateUser.setRoles(users.getRoles());
+          updateUser.setTypeStatus(users.getTypeStatus());
+          updateUser.setUpdatedAt(LocalDateTime.now());
+          updateUser.setEmail(users.getEmail());
+          updateUser.setUsername(users.getUsername());
+          updateUser.setPassword(users.getPassword());
+            return usersRepository.saveAndFlush(updateUser);
         }
 
     }
@@ -80,9 +88,9 @@ public class UsersService {
 //        return deletedUsers;
 //    }
 //
-    public Optional<List<Users>> getAllWriter(){return usersRepository.findByTypeRole();}
-    public Optional<List<Users>> getAllMod(){return usersRepository.getAllMod();}
-    public Optional<List<Users>> getAllAdmin(){return usersRepository.getAllAdmin();}
-    public Optional<List<Users>> getAllReader(){return usersRepository.getAllReader();}
+    public List<Users> getAllWriter(){return usersRepository.findByTypeRole();}
+    public List<Users> getAllMod(){return usersRepository.getAllMod();}
+    public List<Users> getAllAdmin(){return usersRepository.getAllAdmin();}
+    public List<Users> getAllReader(){return usersRepository.getAllReader();}
 
     }

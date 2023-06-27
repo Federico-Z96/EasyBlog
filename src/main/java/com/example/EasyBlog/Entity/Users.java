@@ -28,10 +28,10 @@ public class Users {
     @Column(nullable = false, name = "deleted")
     private boolean deleted;
     @Column(nullable = false, name = "type_status")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private TypeStatusEnum typeStatus;
     @Column(nullable = false, name = "type_role")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private TypeRoleEnum roles;
 
     public Users(){}
