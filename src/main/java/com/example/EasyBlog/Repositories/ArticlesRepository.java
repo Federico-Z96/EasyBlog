@@ -20,12 +20,12 @@ public interface ArticlesRepository extends JpaRepository<Articles,Long> {
 
     @Query("SELECT a FROM Articles a WHERE a.title =:title ")
     Optional<Articles> findArticlesByTitle (String title);
-    @Query("SELECT a FROM Articles a WHERE a.typeStatus='active'")
+    @Query("SELECT a FROM Articles a WHERE a.typeStatus=0")
     Optional<List<Articles>>findArticlesByActive();
 
-    @Query("SELECT a FROM Articles a WHERE a.typeStatus='inactive'")
+    @Query("SELECT a FROM Articles a WHERE a.typeStatus=1")
     Optional<List<Articles>>findArticlesByInactive();
 
-    @Query("SELECT a FROM Articles a WHERE a.typeStatus='Suspended'")
+    @Query("SELECT a FROM Articles a WHERE a.typeStatus=2")
     Optional<List<Articles>>findArticlesBySuspended();
 }

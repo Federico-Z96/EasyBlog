@@ -2,6 +2,8 @@ package com.example.EasyBlog.Entity;
 
 import com.example.EasyBlog.Entity.Enum.TypeGenderArticlesEnum;
 import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 
@@ -31,6 +33,7 @@ public class Articles {
     @Enumerated(EnumType.ORDINAL)
     private TypeGenderArticlesEnum typeGender;
 
+    @Hidden
     @ManyToOne
     @JoinColumn(name = "id_author", referencedColumnName = "id")
     private Users users;

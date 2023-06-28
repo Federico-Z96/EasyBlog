@@ -4,6 +4,11 @@ import com.example.EasyBlog.Entity.Articles;
 import com.example.EasyBlog.Entity.Enum.TypeGenderArticlesEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Service.ArticlesService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +23,20 @@ public class ArticlesController {
     @Autowired
     private ArticlesService articlesService;
 
-    @PostMapping("/create")
-    public ResponseEntity<String> createArticles(@RequestBody Articles articles, Users users) {
-        return articlesService.createArticles(articles,users);
+    @Operation(summary = "Get articles from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article successfully retrieved",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Articles.class)) }),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
+    })
+    @PostMapping("/create/{idUser}")
+    public ResponseEntity<String> createArticles(@RequestBody Articles articles,@PathVariable Long idUser) {
+        return articlesService.createArticles(articles,idUser);
     }
 
-    @GetMapping("/getArticlesActive/{id}")
+    @GetMapping("/getArticlesActive/{idArticles}")
     public Articles getArticleById(@PathVariable Long idArticles) throws Exception {
         return articlesService.getArticlesById(idArticles);
     }

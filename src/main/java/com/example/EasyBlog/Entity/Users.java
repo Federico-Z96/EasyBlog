@@ -3,6 +3,7 @@ package com.example.EasyBlog.Entity;
 import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
 import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 
 
@@ -12,6 +13,7 @@ import java.util.Date;
 @Entity
 @Table
 public class Users {
+    @Hidden
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,8 +23,10 @@ public class Users {
     private String password;
     @Column(nullable = false, name = "email" )
     private String email;
+    @Hidden
     @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
+    @Hidden
     @Column(nullable = false, name = "updated_at")
     private LocalDateTime updatedAt;
     @Column(nullable = false, name = "deleted")

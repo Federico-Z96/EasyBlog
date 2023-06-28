@@ -21,11 +21,13 @@ public class ArticlesService {
     @Autowired
     private  UsersRepository usersRepository;
 
-    public ResponseEntity<String> createArticles(Articles articles, Users users) {
+    public ResponseEntity<String> createArticles(Articles articles, Long idUser) {
+        Users users = usersRepository.findById(idUser).get();
         Optional<Articles> articleByTitle = articlesRepository.findArticlesByTitle(articles.getTitle());
         if (users.getRoles() == TypeRoleEnum.READER || articleByTitle.isPresent()){
           return ResponseEntity.badRequest().body("Title already exists or you haven't permission to create it");
         }
+        articles.setUsers(users);
         articlesRepository.save(articles);
         return ResponseEntity.ok().body("Articles created");
     }
