@@ -4,6 +4,7 @@ import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import jakarta.persistence.*;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -16,11 +17,11 @@ public class Comments {
     @Column(nullable = false,name = "comment_body")
     private String commentText;
     @Column(nullable = false, name = "created_at")
-    private Date createdAt;
+    private LocalDateTime createdAt;
     @Column(nullable = false, name = "updated_at")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
     @Column(nullable = false, name = "type_status")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private TypeStatusEnum typeStatus;
     @ManyToOne
     private Users users;
@@ -29,7 +30,7 @@ public class Comments {
 
     public Comments(){}
 
-    public Comments(Long id, String commentText, Date createdAt, Date updatedAt, TypeStatusEnum typeStatus, Users users, Articles articles) {
+    public Comments(Long id, String commentText, LocalDateTime createdAt, LocalDateTime updatedAt, TypeStatusEnum typeStatus, Users users, Articles articles) {
         this.id = id;
         this.commentText = commentText;
         this.createdAt = createdAt;
@@ -55,19 +56,19 @@ public class Comments {
         this.commentText = commentText;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 

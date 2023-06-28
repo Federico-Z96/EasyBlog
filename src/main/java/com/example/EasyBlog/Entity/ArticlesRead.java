@@ -3,7 +3,8 @@ package com.example.EasyBlog.Entity;
 
     import jakarta.persistence.*;
 
-import java.util.Date;
+    import java.time.LocalDateTime;
+    import java.util.Date;
 
     @Entity
     @Table
@@ -14,9 +15,9 @@ import java.util.Date;
         @GeneratedValue (strategy = GenerationType.IDENTITY)
         private Long id;
         @Column(nullable = false, name = "created_at")
-        private Date createdAt;
+        private LocalDateTime createdAt;
         @Column(nullable = false, name = "updated_at")
-        private Date updatedAt;
+        private LocalDateTime updatedAt;
         @Column(nullable = false, name = "deleted")
         private boolean deleted;
         @ManyToOne
@@ -26,7 +27,7 @@ import java.util.Date;
 
         public ArticlesRead(){}
 
-        public ArticlesRead(Long id, Date createdAt, Date updatedAt, Users users, Articles articles) {
+        public ArticlesRead(Long id, LocalDateTime createdAt, LocalDateTime updatedAt, Users users, Articles articles) {
             this.id = id;
             this.createdAt = createdAt;
             this.updatedAt = updatedAt;
@@ -42,19 +43,19 @@ import java.util.Date;
             this.id = id;
         }
 
-        public Date getCreatedAt() {
+        public LocalDateTime getCreatedAt() {
             return createdAt;
         }
 
-        public void setCreatedAt(Date createdAt) {
+        public void setCreatedAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
         }
 
-        public Date getUpdatedAt() {
+        public LocalDateTime getUpdatedAt() {
             return updatedAt;
         }
 
-        public void setUpdatedAt(Date updatedAt) {
+        public void setUpdatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
         }
 

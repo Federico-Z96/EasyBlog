@@ -5,6 +5,7 @@ import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import jakarta.persistence.*;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -17,17 +18,17 @@ public class Articles {
     @Column(nullable = false, name = "title")
     private String title;
     @Column(nullable = false, name = "created_at")
-    private Date createdAt;
+    private LocalDateTime createdAt;
     @Column(nullable = false, name = "updated_at")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
     @Column(nullable = false, name = "content")
     private String content;
     @Column(nullable = false, name = "type_status")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private TypeStatusEnum typeStatus;
 
     @Column(nullable = false, name = "type_gender")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private TypeGenderArticlesEnum typeGender;
 
     @ManyToOne
@@ -36,7 +37,7 @@ public class Articles {
 
     public Articles(){}
 
-    public Articles(Long id, String title, Date createdAt, Date updatedAt, String content, Users users, TypeStatusEnum typeStatus, TypeGenderArticlesEnum typeGender) {
+    public Articles(Long id, String title, LocalDateTime createdAt, LocalDateTime updatedAt, String content, Users users, TypeStatusEnum typeStatus, TypeGenderArticlesEnum typeGender) {
         this.id = id;
         this.title = title;
         this.createdAt = createdAt;
@@ -63,19 +64,19 @@ public class Articles {
         this.title = title;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 

@@ -3,6 +3,7 @@ package com.example.EasyBlog.Entity;
 import jakarta.persistence.*;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -13,9 +14,9 @@ public class Likes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, name = "created_at")
-    private Date createdAt;
+    private LocalDateTime createdAt;
     @Column(nullable = false, name = "updated_at")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
     @ManyToOne
     private Users users;
     @ManyToOne
@@ -23,7 +24,7 @@ public class Likes {
 
     public Likes(){}
 
-    public Likes(Long id, Date createdAt, Date updatedAt, Users users, Articles articles) {
+    public Likes(Long id, LocalDateTime createdAt, LocalDateTime updatedAt, Users users, Articles articles) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -39,19 +40,19 @@ public class Likes {
         this.id = id;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
