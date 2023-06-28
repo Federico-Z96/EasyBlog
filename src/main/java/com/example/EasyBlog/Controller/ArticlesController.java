@@ -81,7 +81,7 @@ public class ArticlesController {
     }
 
     @GetMapping("/getArticleByGender/{gender}")
-    public ResponseEntity<?> getArticlesByGender(@PathVariable TypeGenderArticlesEnum typeGenderArticlesEnum) {
+    public ResponseEntity<?> getArticlesByGender(@PathVariable ("gender") TypeGenderArticlesEnum typeGenderArticlesEnum) {
         Optional<Articles> articlesOptional = articlesService.getArticlesByGender(typeGenderArticlesEnum);
 
         if (articlesOptional.isPresent()) {
