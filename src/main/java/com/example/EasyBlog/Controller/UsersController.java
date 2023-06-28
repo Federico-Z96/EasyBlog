@@ -29,7 +29,7 @@ public class UsersController {
 
 
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/get/id/{id}")
     public ResponseEntity<Users> getUser(@PathVariable ("id") Long idUser) {
             Users users = usersService.getUserById(idUser);
             if (users == null){
@@ -38,7 +38,7 @@ public class UsersController {
         return ResponseEntity.ok().body(usersService.getUserById(idUser));
     }
 
-    @GetMapping("/get/{email}")
+    @GetMapping("/get/email/{email}")
     public ResponseEntity<Users> getUser(@PathVariable ("email") String email) {
         Users users = usersService.getUserByEmail(email);
         if (users == null){

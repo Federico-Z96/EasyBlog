@@ -76,7 +76,7 @@ public class ArticlesController {
         }
     }
 
-    @GetMapping("/getArticlesBy/{title}")
+    @GetMapping("/getArticles/byTitle/{title}")
     public ResponseEntity<?> getArticlesByTitle(@PathVariable String title) {
         Optional<Articles> articlesOptional = articlesService.getArticlesByTitle(title);
 
