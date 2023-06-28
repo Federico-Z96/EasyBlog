@@ -9,10 +9,8 @@ import com.example.EasyBlog.Repositories.ArticlesRepository;
 import com.example.EasyBlog.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +21,13 @@ public class ArticlesService {
     @Autowired
     private  UsersRepository usersRepository;
 
-    public Articles createArticles(Articles articles,Users users) {
+    public ResponseEntity<String> createArticles(Articles articles, Users users) {
         Optional<Articles> articleByTitle = articlesRepository.findArticlesByTitle(articles.getTitle());
         if (users.getRoles() == TypeRoleEnum.READER || articleByTitle.isPresent()){
             ResponseEntity.badRequest().body("Title already exists or you haven't permission to create it");
         }
-        return articlesRepository.save(articles);
+        articlesRepository.save(articles);
+        return ResponseEntity.ok().body("Articles created");
     }
 
     public Articles getArticlesById(Long id) throws Exception {
@@ -54,7 +53,6 @@ public class ArticlesService {
     }
 
     public Optional<List<Articles>> getAllInactiveArticles(){
-
         return articlesRepository.findArticlesByInactive();
     }
 
@@ -64,23 +62,20 @@ public class ArticlesService {
 
     public Optional<Articles> getArticlesByTitle(String title){return articlesRepository.findArticlesByTitle(title);}
 
-   public Optional<Articles> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){return articlesRepository.getArticlesByGender(typeGenderArticlesEnum);}
+   public Optional<Articles> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){
+        return articlesRepository.getArticlesByGender(typeGenderArticlesEnum);}
 
     public Optional<Articles> updateArticleStatus(Long articleId){
-        return articlesRepository.updateArticlesStatus(articleId);}
+        return articlesRepository.updateArticlesStatus(articleId);
+    }
 
     public Optional<Articles> updateArticle(Long id, Articles articles){
         Optional<Articles> foundArticle = articlesRepository.findById(id);
-
         if (foundArticle.isEmpty()){
            return Optional.empty();
         }
         return Optional.of(articlesRepository.save(articles));
-
     }
-
-
-
 
 //    public List<Articles> getAllDeletedArticles(){
 //        List<Articles> inactiveArticles = new ArrayList<>();
