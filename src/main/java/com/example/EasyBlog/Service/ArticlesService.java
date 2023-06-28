@@ -24,7 +24,7 @@ public class ArticlesService {
     public ResponseEntity<String> createArticles(Articles articles, Users users) {
         Optional<Articles> articleByTitle = articlesRepository.findArticlesByTitle(articles.getTitle());
         if (users.getRoles() == TypeRoleEnum.READER || articleByTitle.isPresent()){
-            ResponseEntity.badRequest().body("Title already exists or you haven't permission to create it");
+          return ResponseEntity.badRequest().body("Title already exists or you haven't permission to create it");
         }
         articlesRepository.save(articles);
         return ResponseEntity.ok().body("Articles created");

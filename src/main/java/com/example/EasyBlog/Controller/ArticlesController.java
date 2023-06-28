@@ -19,12 +19,8 @@ public class ArticlesController {
     private ArticlesService articlesService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createArticles(@RequestBody Articles articles, Users users) {
-        try {
-            return ResponseEntity.ok(articlesService.createArticles(articles, users));
-        } catch (IllegalStateException e) {
-            return ResponseEntity.badRequest().body("Invalid arguments");
-        }
+    public ResponseEntity<String> createArticles(@RequestBody Articles articles, Users users) {
+        return articlesService.createArticles(articles,users);
     }
 
     @GetMapping("/getArticlesActive/{id}")
