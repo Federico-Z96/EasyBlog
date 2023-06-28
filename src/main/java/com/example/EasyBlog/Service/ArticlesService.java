@@ -36,19 +36,9 @@ public class ArticlesService {
     public Articles getArticlesById(Long id) throws Exception {
         Optional<Articles> articlesOptional = articlesRepository.findById(id);
         if (articlesOptional.isEmpty()) {
-            ResponseEntity.badRequest().body("Article does not exist");
+            return null;
         }
-        Articles article = articlesOptional.get();
-        if (article.getTypeStatus() == TypeStatusEnum.INACTIVE) {
-            ResponseEntity.badRequest().body("Article is inactive");
-        } else if (article.getTypeStatus() == TypeStatusEnum.SUSPENDED) {
-            ResponseEntity.badRequest().body("Article is suspended");
-        } else if (article.getTypeStatus() == TypeStatusEnum.ACTIVE) {
-            ResponseEntity.ok(article);
-        } else {
-            ResponseEntity.badRequest().body("Article is in an unrecognized status");
-        }
-        return null;
+        return articlesOptional.get();
     }
 
     public List<Articles> getAllArticles(){
@@ -61,6 +51,10 @@ public class ArticlesService {
 
     public Optional<List<Articles>> getAllSuspendedArticles(){
         return articlesRepository.findArticlesBySuspended();
+    }
+
+    public Optional<List<Articles>> getAllActiveArticles() {
+        return articlesRepository.findArticlesByActive();
     }
 
     public Optional<Articles> getArticlesByTitle(String title){return articlesRepository.findArticlesByTitle(title);}

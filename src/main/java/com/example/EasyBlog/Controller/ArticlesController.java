@@ -23,7 +23,7 @@ public class ArticlesController {
     @Autowired
     private ArticlesService articlesService;
 
-    @Operation(summary = "Get articles from easy blog")
+    @Operation(summary = "Create articles from easy blog")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Article successfully retrieved",
                     content = { @Content(mediaType = "application/json",
@@ -36,11 +36,27 @@ public class ArticlesController {
         return articlesService.createArticles(articles,idUser);
     }
 
-    @GetMapping("/getArticlesActive/{idArticles}")
+    @Operation(summary = "Get articles from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article successfully retrieved",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Articles.class)) }),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
+    })
+    @GetMapping("/getArticlesById/{idArticles}")
     public Articles getArticleById(@PathVariable Long idArticles) throws Exception {
         return articlesService.getArticlesById(idArticles);
     }
 
+    @Operation(summary = "Get inactive articles from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article successfully retrieved",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Articles.class)) }),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
+    })
     @GetMapping("/getArticlesInactive")
     public ResponseEntity<?> getArticlesInactive() {
         Optional<List<Articles>> inactiveArticlesOptional = articlesService.getAllInactiveArticles();
@@ -53,6 +69,14 @@ public class ArticlesController {
         }
     }
 
+    @Operation(summary = "Get suspended articles from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article successfully retrieved",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Articles.class)) }),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
+    })
     @GetMapping("/getArticlesSuspended")
     public ResponseEntity<?> getArticlesSuspended() {
         Optional<List<Articles>> suspendedArticlesOptional = articlesService.getAllSuspendedArticles();
@@ -65,6 +89,26 @@ public class ArticlesController {
         }
     }
 
+    @GetMapping("/getArticlesActive")
+    public ResponseEntity<?> getArticlesActive() {
+        Optional<List<Articles>> activeArticlesOptional = articlesService.getAllActiveArticles();
+
+        if (activeArticlesOptional.isPresent()) {
+            List<Articles> suspendedArticles = activeArticlesOptional.get();
+            return ResponseEntity.ok(suspendedArticles);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
+    @Operation(summary = "Get all articles from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article successfully retrieved",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Articles.class)) }),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
+    })
+
     @GetMapping("/getAllArticles")
     public ResponseEntity<?> getAllArticles() {
         List<Articles> allArticles = articlesService.getAllArticles();
@@ -75,6 +119,14 @@ public class ArticlesController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
     }
+    @Operation(summary = "Get articles by title from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article successfully retrieved",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Articles.class)) }),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
+    })
 
     @GetMapping("/getArticles/byTitle/{title}")
     public ResponseEntity<?> getArticlesByTitle(@PathVariable String title) {
@@ -88,6 +140,14 @@ public class ArticlesController {
         }
     }
 
+    @Operation(summary = "Get articles by gender from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article successfully retrieved",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Articles.class)) }),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
+    })
     @GetMapping("/getArticleByGender/{gender}")
     public ResponseEntity<?> getArticlesByGender(@PathVariable ("gender") TypeGenderArticlesEnum typeGenderArticlesEnum) {
         Optional<Articles> articlesOptional = articlesService.getArticlesByGender(typeGenderArticlesEnum);
@@ -100,6 +160,14 @@ public class ArticlesController {
         }
     }
 
+    @Operation(summary = "Update from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article successfully retrieved",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Articles.class)) }),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
+    })
     @PutMapping("/{id}/update")
     public ResponseEntity<?> updateArticle(@PathVariable Long id, @RequestBody Articles articles) {
         Optional<Articles> updatedArticle = articlesService.updateArticle(id, articles);
