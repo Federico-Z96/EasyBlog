@@ -35,6 +35,14 @@ public class UsersService {
         return usersOptional.get();
     }
 
+    public Users getUserByEmail(String email){
+        Optional<Users> usersOptional = usersRepository.findUserByEmail(email);
+        if (usersOptional.isEmpty()) {
+            return null;
+        }
+        return usersOptional.get();
+    }
+
     public List<Users> getAllUsers(){
         return usersRepository.findAll();
     }

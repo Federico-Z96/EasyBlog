@@ -38,6 +38,15 @@ public class UsersController {
         return ResponseEntity.ok().body(usersService.getUserById(idUser));
     }
 
+    @GetMapping("/get/{email}")
+    public ResponseEntity<Users> getUser(@PathVariable ("email") String email) {
+        Users users = usersService.getUserByEmail(email);
+        if (users == null){
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok().body(usersService.getUserByEmail(email));
+    }
+
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllLocations() {
         List<Users> users = usersService.getAllUsers();
