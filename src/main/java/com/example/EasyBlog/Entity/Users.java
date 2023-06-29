@@ -5,6 +5,9 @@ import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 
 import java.time.LocalDateTime;
@@ -20,6 +23,9 @@ public class Users {
     @Column(nullable = false, name = "username")
     private String username;
     @Column(nullable = false,name = "password" )
+    @NotBlank
+    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @Pattern(regexp = ".*\\d.*", message = "Password must contain at least one digit")
     private String password;
     @Column(nullable = false, name = "email" )
     private String email;
@@ -27,8 +33,6 @@ public class Users {
     private LocalDateTime createdAt;
     @Column(nullable = false, name = "updated_at")
     private LocalDateTime updatedAt;
-    @Column(nullable = false, name = "deleted")
-    private boolean deleted;
     @Column(nullable = false, name = "type_status")
     @Enumerated(EnumType.ORDINAL)
     private TypeStatusEnum typeStatus;

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class UsersController {
             @ApiResponse(responseCode = "400", description = "Invalid Email", content = @Content)
     })
     @PostMapping("/register")
-    public ResponseEntity<String> createUser(@RequestBody Users users) {
+    public ResponseEntity<String> createUser(@Valid @RequestBody Users users) {
         return usersService.createUser(users);
     }
 
