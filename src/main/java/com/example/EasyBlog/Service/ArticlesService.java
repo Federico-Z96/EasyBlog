@@ -30,7 +30,7 @@ public class ArticlesService {
         }
         articles.setUsers(users);
         articlesRepository.save(articles);
-        return ResponseEntity.ok().body("Articles created");
+        return ResponseEntity.ok().body("Article created");
     }
 
     public Articles getArticlesById(Long id) throws Exception {
