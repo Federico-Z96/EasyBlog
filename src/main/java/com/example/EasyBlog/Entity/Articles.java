@@ -19,10 +19,8 @@ public class Articles {
     private Long id;
     @Column(nullable = false, name = "title")
     private String title;
-    @Hidden
     @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
-    @Hidden
     @Column(nullable = false, name = "updated_at")
     private LocalDateTime updatedAt;
     @Column(nullable = false, name = "content")

@@ -23,10 +23,8 @@ public class Users {
     private String password;
     @Column(nullable = false, name = "email" )
     private String email;
-    @Hidden
     @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
-    @Hidden
     @Column(nullable = false, name = "updated_at")
     private LocalDateTime updatedAt;
     @Column(nullable = false, name = "deleted")
