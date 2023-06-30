@@ -25,11 +25,13 @@ public class CommentsService {
 
 
     public ResponseEntity<String> createComments(Comments comments,Long idArticle, Long idUser) {
-        Optional<Users> findUsers = usersRepository.findById(idUser);
-        Optional<Articles> findArticles = articlesRepository.findById(idArticle);
-        if (findUsers.isEmpty() || findArticles.isEmpty()) {
+        Users users = usersRepository.findById(idUser).get();
+        Articles articles = articlesRepository.findById(idArticle).get();
+        if (users.getId() == null || articles.getId() == null) {
             return ResponseEntity.badRequest().body("User not found or articles not found");
         }
+        comments.setUsers(users);
+        comments.setArticles(articles);
         commentsRepository.save(comments);
         return ResponseEntity.ok("Comment created successfully");
     }
