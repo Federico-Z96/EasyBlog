@@ -1,6 +1,7 @@
 package com.example.EasyBlog.Entity;
 
 import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 
 
@@ -23,9 +24,14 @@ public class Comments {
     @Column(nullable = false, name = "type_status")
     @Enumerated(EnumType.ORDINAL)
     private TypeStatusEnum typeStatus;
+
+    @Hidden
     @ManyToOne
+    @JoinColumn(name = "id_author", referencedColumnName = "id")
     private Users users;
+    @Hidden
     @ManyToOne
+    @JoinColumn(name = "id_article", referencedColumnName = "id")
     private Articles articles;
 
     public Comments(){}

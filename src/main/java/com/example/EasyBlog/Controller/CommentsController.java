@@ -1,10 +1,19 @@
 package com.example.EasyBlog.Controller;
 
+import com.example.EasyBlog.Entity.Articles;
 import com.example.EasyBlog.Entity.Comments;
+import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Service.CommentsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,10 +25,21 @@ public class CommentsController {
     @Autowired
     private CommentsService commentsService;
 
-    @PostMapping("/create")
-    public ResponseEntity<String> createComments(@RequestBody Comments comments, Long id){
-        return commentsService.createComments(comments,id);
+    @Operation(summary = "Create comments from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Comment posted",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Comments.class)) }),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
+    })
+
+
+    @PostMapping("/create/{idUser}/{idArticle}")
+    public ResponseEntity<String> createComments(@RequestBody Comments comments,@PathVariable Long idArticle,@PathVariable Long idUser) {
+        return commentsService.createComments(comments,idArticle,idUser);
     }
+
     @PutMapping("/update/{id}")
     public ResponseEntity <?> updateComments(@RequestBody Comments comments,@PathVariable Long id){
         ResponseEntity<String> updatedComments = commentsService.updateComments(comments,id);

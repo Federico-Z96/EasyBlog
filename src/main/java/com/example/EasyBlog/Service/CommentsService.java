@@ -24,9 +24,9 @@ public class CommentsService {
     private ArticlesRepository articlesRepository;
 
 
-    public ResponseEntity<String> createComments(Comments comments, Long id) {
-        Optional<Users> findUsers = usersRepository.findById(id);
-        Optional<Articles> findArticles = articlesRepository.findById(id);
+    public ResponseEntity<String> createComments(Comments comments,Long idArticle, Long idUser) {
+        Optional<Users> findUsers = usersRepository.findById(idUser);
+        Optional<Articles> findArticles = articlesRepository.findById(idArticle);
         if (findUsers.isEmpty() || findArticles.isEmpty()) {
             return ResponseEntity.badRequest().body("User not found or articles not found");
         }
