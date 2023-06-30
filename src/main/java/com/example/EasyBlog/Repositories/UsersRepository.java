@@ -19,7 +19,7 @@ public interface UsersRepository extends JpaRepository<Users,Long> {
     @Query("SELECT u FROM Users u WHERE u.roles = 2")
     List<Users> getAllMod ();
 
-    @Query("SELECT u FROM Users WHERE u.roles=1")
+    @Query("SELECT u FROM Users u WHERE u.roles=1")
     List<Users> getallWriter();
     @Query("SELECT u FROM Users u WHERE u.roles = :roles")
     List<Users> findByTypeRole (@Param("roles")TypeRoleEnum typeRoleEnum);
