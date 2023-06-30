@@ -1,5 +1,6 @@
 package com.example.EasyBlog.Service;
 
+import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,28 +78,6 @@ public class UsersService {
         }
 
     }
-//
-//    public Users deleteUser(Long idUser){
-//        Optional<Users> usersOptional = usersRepository.findById(idUser);
-//        if (usersOptional.isEmpty()) ResponseEntity.badRequest().body("User does not exist");
-//        return usersOptional.get();
-//    }
-//
-//    public List<Users> deleteAllUsers(){
-//        List<Users> deletedUsers = new ArrayList<>();
-//        List<Users> allUsers = usersRepository.findAll();
-//
-//        for (Users user : allUsers) {
-//            deletedUsers.add(user);
-//            usersRepository.delete(user);
-//        }
-//
-//        return deletedUsers;
-//    }
-//
-    public List<Users> getAllWriter(){return usersRepository.findByTypeRole();}
-    public List<Users> getAllMod(){return usersRepository.getAllMod();}
-    public List<Users> getAllAdmin(){return usersRepository.getAllAdmin();}
-    public List<Users> getAllReader(){return usersRepository.getAllReader();}
+    public List<Users> getAllUsersRoles(TypeRoleEnum typeRoleEnum){return usersRepository.findByTypeRole(typeRoleEnum);}
 
     }

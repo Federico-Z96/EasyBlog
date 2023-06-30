@@ -1,6 +1,7 @@
 package com.example.EasyBlog.Repositories;
 
 import com.example.EasyBlog.Entity.Comments;
+import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
 import com.example.EasyBlog.Entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,8 +19,10 @@ public interface UsersRepository extends JpaRepository<Users,Long> {
     @Query("SELECT u FROM Users u WHERE u.roles = 2")
     List<Users> getAllMod ();
 
-    @Query("SELECT u FROM Users u WHERE u.roles = 1")
-    List<Users> findByTypeRole ();
+    @Query("SELECT u FROM Users WHERE u.roles=1")
+    List<Users> getallWriter();
+    @Query("SELECT u FROM Users u WHERE u.roles = :roles")
+    List<Users> findByTypeRole (@Param("roles")TypeRoleEnum typeRoleEnum);
 
 
     @Query("SELECT u FROM Users u WHERE u.email = :email")

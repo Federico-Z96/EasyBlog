@@ -45,16 +45,8 @@ public class ArticlesService {
         return articlesRepository.findAll();
     }
 
-    public Optional<List<Articles>> getAllInactiveArticles(){
-        return articlesRepository.findArticlesByInactive();
-    }
-
-    public Optional<List<Articles>> getAllSuspendedArticles(){
-        return articlesRepository.findArticlesBySuspended();
-    }
-
-    public Optional<List<Articles>> getAllActiveArticles() {
-        return articlesRepository.findArticlesByActive();
+    public Optional<List<Articles>> getStatusArticles(TypeStatusEnum typeStatusEnum) {
+        return articlesRepository.findArticlesByActive(typeStatusEnum);
     }
 
     public Optional<Articles> getArticlesByTitle(String title){return articlesRepository.findArticlesByTitle(title);}

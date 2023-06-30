@@ -1,6 +1,7 @@
 package com.example.EasyBlog.Controller;
 
 import com.example.EasyBlog.Entity.Articles;
+import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -170,7 +171,7 @@ public class UsersController {
         }
     }
 
-    @Operation(summary = "Get user writer from easy blog")
+    @Operation(summary = "Get roles users from easy blog")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User successfully found",
                     content = { @Content(mediaType = "application/json",
@@ -179,74 +180,14 @@ public class UsersController {
             @ApiResponse(responseCode = "400", description = "Invalid Email", content = @Content)
     })
 
-    @GetMapping("/getUsersWriter")
-    public ResponseEntity<?> getAllWriter() {
-        List<Users> writerUsers = usersService.getAllWriter();
+    @GetMapping("/getRoleUsers/{roles}")
+    public ResponseEntity<?> getAllWriter(@PathVariable TypeRoleEnum roles) {
+        List<Users> rolesUsers = usersService.getAllUsersRoles(roles);
 
-        if (!writerUsers.isEmpty()) {
-            return ResponseEntity.ok((writerUsers));
+        if (!rolesUsers.isEmpty()) {
+            return ResponseEntity.ok((rolesUsers));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
     }
-
-    @Operation(summary = "Get user readers from easy blog")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User successfully found",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Articles.class)) }),
-            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid Email", content = @Content)
-    })
-
-    @GetMapping("/getReaderUsers")
-    public ResponseEntity<?> getUsersReader() {
-        List<Users> usersReader = usersService.getAllReader();
-
-        if (!usersReader.isEmpty()) {
-            return ResponseEntity.ok(usersReader);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
-        }
-    }
-    @Operation(summary = "Get user mod from easy blog")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User successfully found",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Articles.class)) }),
-            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid Email", content = @Content)
-    })
-
-    @GetMapping("/getUsersMod")
-    public ResponseEntity<?> getUsersMod() {
-        List<Users> modUsers = usersService.getAllMod();
-
-        if (!modUsers.isEmpty()) {
-            return ResponseEntity.ok(modUsers);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
-        }
-    }
-    @Operation(summary = "Get user admin from easy blog")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User successfully found",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Articles.class)) }),
-            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid Email", content = @Content)
-    })
-
-    @GetMapping("/getUsersAdmin")
-    public ResponseEntity<?> getUsersAdmin() {
-        List<Users> adminUsers = usersService.getAllAdmin();
-
-        if (!adminUsers.isEmpty()) {
-            return ResponseEntity.ok(adminUsers);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
-        }
-    }
-
-
 }

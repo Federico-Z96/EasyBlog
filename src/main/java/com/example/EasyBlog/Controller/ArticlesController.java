@@ -2,6 +2,7 @@ package com.example.EasyBlog.Controller;
 
 import com.example.EasyBlog.Entity.Articles;
 import com.example.EasyBlog.Entity.Enum.TypeGenderArticlesEnum;
+import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Service.ArticlesService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,49 +50,17 @@ public class ArticlesController {
         return articlesService.getArticlesById(idArticles);
     }
 
-    @Operation(summary = "Get inactive articles from easy blog")
+    @Operation(summary = "Get status articles from easy blog")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Article successfully retrieved",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Articles.class)) }),
             @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Invalid status", content = @Content)
     })
-    @GetMapping("/getArticlesInactive")
-    public ResponseEntity<?> getArticlesInactive() {
-        Optional<List<Articles>> inactiveArticlesOptional = articlesService.getAllInactiveArticles();
-
-        if (inactiveArticlesOptional.isPresent()) {
-            List<Articles> inactiveArticles = inactiveArticlesOptional.get();
-            return ResponseEntity.ok(inactiveArticles);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
-        }
-    }
-
-    @Operation(summary = "Get suspended articles from easy blog")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Article successfully retrieved",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Articles.class)) }),
-            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
-    })
-    @GetMapping("/getArticlesSuspended")
-    public ResponseEntity<?> getArticlesSuspended() {
-        Optional<List<Articles>> suspendedArticlesOptional = articlesService.getAllSuspendedArticles();
-
-        if (suspendedArticlesOptional.isPresent()) {
-            List<Articles> suspendedArticles = suspendedArticlesOptional.get();
-            return ResponseEntity.ok(suspendedArticles);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
-        }
-    }
-
-    @GetMapping("/getArticlesActive")
-    public ResponseEntity<?> getArticlesActive() {
-        Optional<List<Articles>> activeArticlesOptional = articlesService.getAllActiveArticles();
+    @GetMapping("/getArticlesStatus/{status}")
+    public ResponseEntity<?> getArticlesActive(@PathVariable TypeStatusEnum status) {
+        Optional<List<Articles>> activeArticlesOptional = articlesService.getStatusArticles(status);
 
         if (activeArticlesOptional.isPresent()) {
             List<Articles> suspendedArticles = activeArticlesOptional.get();
