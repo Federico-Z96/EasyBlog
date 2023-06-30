@@ -2,6 +2,7 @@ package com.example.EasyBlog.Controller;
 
 import com.example.EasyBlog.Entity.Articles;
 import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
+import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,6 +14,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,8 +40,13 @@ public class UsersController {
             @ApiResponse(responseCode = "400", description = "Invalid Email", content = @Content)
     })
     @PostMapping("/register")
-    public ResponseEntity<String> createUser(@Valid @RequestBody Users users) {
-        return usersService.createUser(users);
+    public ResponseEntity<String> createUser(@Valid @RequestBody Users users, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body("Something error");
+        } else {
+            usersService.createUser(users);
+            return ResponseEntity.ok().body("User registered!!");
+        }
     }
 
 
@@ -107,67 +114,13 @@ public class UsersController {
     })
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateUser(@RequestBody Users users, @PathVariable ("id") Long id) {
-        Users updatedUser = usersService.updateUser(users,id);
+        Users updatedUser = usersService.updateUser(users, id);
 
         if (updatedUser != null) {
             return ResponseEntity.ok().body("Success update");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
 
-        }
-    }
-    @Operation(summary = "Get user active from easy blog")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User successfully found",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Articles.class)) }),
-            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid Email", content = @Content)
-    })
-    @GetMapping("/getUsersActive")
-    public ResponseEntity<?> getUsersActive() {
-        List<Users> activeUsers = usersService.getAllActiveUsers();
-
-        if (activeUsers.isEmpty()) {
-            return ResponseEntity.ok(activeUsers);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
-        }
-    }
-    @Operation(summary = "Get user inactive from easy blog")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User successfully found",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Articles.class)) }),
-            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid Email", content = @Content)
-    })
-    @GetMapping("/getUsersInactive")
-    public ResponseEntity<?> getUsersInactive() {
-        List<Users> inactiveUsers = usersService.getAllInactiveUsers();
-
-        if (inactiveUsers.isEmpty()) {
-            return ResponseEntity.ok(inactiveUsers);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
-        }
-    }
-    @Operation(summary = "Get user suspended from easy blog")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User successfully found",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Articles.class)) }),
-            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid Email", content = @Content)
-    })
-    @GetMapping("/getUsersSuspended")
-    public ResponseEntity<?> getUsersSuspended() {
-        List<Users> suspendedUsers = usersService.getAllSuspendedUsers();
-
-        if (!suspendedUsers.isEmpty()) {
-            return ResponseEntity.ok(suspendedUsers);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
     }
 
@@ -186,6 +139,26 @@ public class UsersController {
 
         if (!rolesUsers.isEmpty()) {
             return ResponseEntity.ok((rolesUsers));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
+
+    @Operation(summary = "Get user status from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User successfully found",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Articles.class)) }),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error", content = @Content)
+    })
+
+    @GetMapping("/getStatusUsers/{status}")
+    public ResponseEntity<?> getAllStatus(@PathVariable TypeStatusEnum status) {
+        List<Users> statusUsers = usersService.getAllUsersStatus(status);
+
+        if (!statusUsers.isEmpty()) {
+            return ResponseEntity.ok((statusUsers));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }

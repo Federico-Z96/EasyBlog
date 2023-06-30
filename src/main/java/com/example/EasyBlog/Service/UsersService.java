@@ -1,6 +1,7 @@
 package com.example.EasyBlog.Service;
 
 import com.example.EasyBlog.Entity.Enum.TypeRoleEnum;
+import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,19 +49,6 @@ public class UsersService {
         return usersRepository.findAll();
     }
 
-    public List<Users> getAllActiveUsers(){
-        return usersRepository.findUsersByActive();
-    }
-
-    public List<Users> getAllInactiveUsers(){
-        return usersRepository.findUsersByInactive();
-    }
-
-    public List<Users> getAllSuspendedUsers(){
-        return usersRepository.findUsersBySuspended();
-    }
-
-
     public Users updateUser (Users users, Long id){
         Optional<Users> optionalUpdateUser = usersRepository.findById(id);
 
@@ -79,5 +67,7 @@ public class UsersService {
 
     }
     public List<Users> getAllUsersRoles(TypeRoleEnum typeRoleEnum){return usersRepository.findByTypeRole(typeRoleEnum);}
+
+    public List<Users> getAllUsersStatus(TypeStatusEnum typeStatusEnum){return usersRepository.findUsersByStatus(typeStatusEnum);}
 
     }
