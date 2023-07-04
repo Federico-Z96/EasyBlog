@@ -2,6 +2,7 @@ package com.example.EasyBlog.Controller;
 
 import com.example.EasyBlog.Entity.Articles;
 import com.example.EasyBlog.Entity.Comments;
+import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import com.example.EasyBlog.Entity.Users;
 import com.example.EasyBlog.Service.CommentsService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,49 +35,61 @@ public class CommentsController {
             @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
     })
 
-
-    @PostMapping("/create/{idUser}/{idArticle}")
-    public ResponseEntity<String> createComments(@RequestBody Comments comments,@PathVariable Long idArticle,@PathVariable Long idUser) {
-        return commentsService.createComments(comments,idArticle,idUser);
+    @PostMapping("/create/{idUser}/{idComment}")
+    public ResponseEntity<String> createComments(@RequestBody Comments comments,@PathVariable Long idComment,@PathVariable Long idUser) {
+        return commentsService.createComments(comments,idComment,idUser);
     }
+    @Operation(summary = "Update comments from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Comment posted",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Comments.class)) }),
+            @ApiResponse(responseCode = "404", description = "Comment not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid Comment", content = @Content)
+    })
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity <?> updateComments(@RequestBody Comments comments,@PathVariable Long id){
-        ResponseEntity<String> updatedComments = commentsService.updateComments(comments,id);
-        if (updatedComments != null){
-            return ResponseEntity.ok(updatedComments);
-        }else {
+    @PutMapping("/{id}/update")
+    public ResponseEntity<?> updateComment(@PathVariable Long id, @RequestBody Comments comment) {
+        Optional<Comments> updatedComment = commentsService.updateComment(id, comment);
+
+        if (updatedComment.isPresent()) {
+            return ResponseEntity.ok(updatedComment.get());
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
     }
-    @GetMapping("/getAllActive")
-    public ResponseEntity <?> getAllActiveComments() {
-        Optional<List<Comments>> activeComments = commentsService.getAllActiveComments();
 
-        if (activeComments.isPresent()) {
-            return ResponseEntity.ok(activeComments.get());
+    @Operation(summary = "Get status comments from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Comment successfully retrieved",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Articles.class)) }),
+            @ApiResponse(responseCode = "404", description = "Comment not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid status", content = @Content)
+    })
+    @GetMapping("/getCommentsStatus/{status}")
+    public ResponseEntity<?> getCommentStatus(@PathVariable TypeStatusEnum status) {
+        Optional<List<Comments>> activeCommentsOptional = commentsService.getCommentsByStatus(status);
+
+        if (activeCommentsOptional.isPresent()) {
+            List<Comments> commentStatus = activeCommentsOptional.get();
+            return ResponseEntity.ok(commentStatus);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
     }
-    @GetMapping("/getAllInactive")
-    public ResponseEntity<?> getAllInactiveComments() {
-        Optional <List<Comments>> inactiveComments = commentsService.getAllInactiveComments();
-        if (inactiveComments.isPresent()) {
-            return ResponseEntity.ok(inactiveComments.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("not found");
-        }
-    }
 
-    @GetMapping("/getAllSuspended")
-    public ResponseEntity<?> getAllSuspendedComments() {
-        Optional<List<Comments>> getAllSuspendedComments = commentsService.getAllSuspendedComments();
-        if (getAllSuspendedComments.isPresent()){
-            return ResponseEntity.ok(getAllSuspendedComments.get());
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("not found");
-        }
+    @Operation(summary = "Get comment by id from easy blog")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Comment successfully retrieved",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Articles.class)) }),
+            @ApiResponse(responseCode = "404", description = "Comment not found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid Comment", content = @Content)
+    })
+    @GetMapping("/getCommentById/{idComment}")
+    public Comments getCommentById(@PathVariable Long idComment) throws Exception {
+        return commentsService.getCommentById(idComment);
     }
 
 

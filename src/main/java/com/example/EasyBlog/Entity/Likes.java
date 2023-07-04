@@ -1,5 +1,6 @@
 package com.example.EasyBlog.Entity;
 
+import com.example.EasyBlog.Entity.Enum.TypeStatusEnum;
 import jakarta.persistence.*;
 
 
@@ -17,19 +18,26 @@ public class Likes {
     private LocalDateTime createdAt;
     @Column(nullable = false, name = "updated_at")
     private LocalDateTime updatedAt;
+    @Column(nullable = false, name = "type_status")
+    @Enumerated(EnumType.ORDINAL)
+    private TypeStatusEnum typeStatus;
     @ManyToOne
     private Users users;
     @ManyToOne
     private Articles articles;
+    @ManyToOne
+    private Comments comments;
 
     public Likes(){}
 
-    public Likes(Long id, LocalDateTime createdAt, LocalDateTime updatedAt, Users users, Articles articles) {
+    public Likes(Long id, LocalDateTime createdAt, LocalDateTime updatedAt,TypeStatusEnum typeStatusEnum, Users users, Articles articles, Comments comments) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.typeStatus = typeStatusEnum;
         this.users = users;
         this.articles = articles;
+        this.comments = comments;
     }
 
     public Long getId() {
@@ -56,6 +64,14 @@ public class Likes {
         this.updatedAt = updatedAt;
     }
 
+    public TypeStatusEnum getTypeStatus() {
+        return typeStatus;
+    }
+
+    public void setTypeStatus(TypeStatusEnum typeStatus) {
+        this.typeStatus = typeStatus;
+    }
+
     public Users getUsers() {
         return users;
     }
@@ -70,5 +86,13 @@ public class Likes {
 
     public void setArticles(Articles articles) {
         this.articles = articles;
+    }
+
+    public Comments getComments() {
+        return comments;
+    }
+
+    public void setComments(Comments comments) {
+        this.comments = comments;
     }
 }
