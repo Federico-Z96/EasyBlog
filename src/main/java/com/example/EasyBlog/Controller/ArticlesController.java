@@ -119,10 +119,10 @@ public class ArticlesController {
     })
     @GetMapping("/getArticleByGender/{gender}")
     public ResponseEntity<?> getArticlesByGender(@PathVariable ("gender") TypeGenderArticlesEnum typeGenderArticlesEnum) {
-        Optional<Articles> articlesOptional = articlesService.getArticlesByGender(typeGenderArticlesEnum);
+        Optional <List<Articles>> articlesOptional = articlesService.getArticlesByGender(typeGenderArticlesEnum);
 
         if (articlesOptional.isPresent()) {
-            Articles articlesByGender = articlesOptional.get();
+            List<Articles> articlesByGender = articlesOptional.get();
             return ResponseEntity.ok(articlesByGender);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");

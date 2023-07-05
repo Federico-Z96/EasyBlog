@@ -51,7 +51,7 @@ public class ArticlesService {
 
     public Optional<Articles> getArticlesByTitle(String title){return articlesRepository.findArticlesByTitle(title);}
 
-   public Optional<Articles> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){
+   public Optional <List<Articles>> getArticlesByGender(TypeGenderArticlesEnum typeGenderArticlesEnum){
         return articlesRepository.getArticlesByGender(typeGenderArticlesEnum);}
 
     public Optional<Articles> updateArticleStatus(Long articleId){

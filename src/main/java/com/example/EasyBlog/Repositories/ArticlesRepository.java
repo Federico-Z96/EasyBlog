@@ -17,7 +17,7 @@ public interface ArticlesRepository extends JpaRepository<Articles,Long> {
     Optional<Articles> updateArticlesStatus(Long articleId);
 
    @Query("SELECT a FROM Articles a WHERE a.typeGender = :gender")
-   Optional<Articles> getArticlesByGender(@Param("gender") TypeGenderArticlesEnum typeGenderArticlesEnum);
+   Optional<List<Articles>> getArticlesByGender(@Param("gender") TypeGenderArticlesEnum typeGenderArticlesEnum);
 
     @Query("SELECT a FROM Articles a WHERE a.title =:title ")
     Optional<Articles> findArticlesByTitle (String title);
