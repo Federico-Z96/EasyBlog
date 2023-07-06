@@ -35,9 +35,9 @@ public class CommentsController {
             @ApiResponse(responseCode = "400", description = "Invalid Title", content = @Content)
     })
 
-    @PostMapping("/create/{idUser}/{idComment}")
-    public ResponseEntity<String> createComments(@RequestBody Comments comments,@PathVariable Long idComment,@PathVariable Long idUser) {
-        return commentsService.createComments(comments,idComment,idUser);
+    @PostMapping("/create/{idUser}/{idArticle}")
+    public ResponseEntity<String> createComments(@RequestBody Comments comments,@PathVariable Long idArticle,@PathVariable Long idUser) {
+        return commentsService.createComments(comments,idArticle,idUser);
     }
     @Operation(summary = "Update comments from easy blog")
     @ApiResponses(value = {
